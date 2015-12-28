@@ -1,0 +1,32 @@
+<!-- 读取 编辑器模板信息 -->
+<!-- run:$fckeditor = $fckeditor ? $fckeditor : FckEditor("content",$content,"Default","370px","680px") -->
+<div>
+	<div>{:$fckeditor}</div>
+	<div class="table1" id="cabIE" style="display:none;">&nbsp;如果您的客户端未安装XuploadFiles控件，<a href="upfiles/xuploadfiles.cab">请点击这里下载</a>，仅支持IE浏览器！</div>
+	<div>
+		<table>
+		<tr>
+			<td><input type="button" value="图片" onclick="openpicture();"></td>
+			<td><input type="button" value="文件" onclick="openfiles();"></td>
+			<td><iframe width="445px" height="25px" frameborder="0" marginheight="0" marginwidth="0" scrolling=no  style="overflow:hidden;padding:0px;margin:0px;" src="admin.php?file=iframe&act=fckupfile&input_name=content" allowtransparency="true"></iframe></td>
+		</tr>
+		</table>
+	</div>
+
+<script type="text/javascript">
+function openfiles()
+{
+	var url = "admin.php?file=open&act=files.fck&input_name=content";
+	Layer.init(url,600,500);
+}
+function openpicture()
+{
+	var url = "admin.php?file=open&act=images.fck&input_name=content";
+	Layer.init(url,600,420);
+}
+if(qgIE != "FF")
+{
+	$("cabIE").style.display = "";
+}
+</script>
+</div>

@@ -1,0 +1,81 @@
+<!-- inc:head -->
+<style type="text/css">
+*,html,body
+{
+	overflow:hidden;
+	margin:0;
+	padding:0;
+}
+</style>
+	<div id="ie_upfiles" style="display:none;">
+		<div style="display:none;">
+		<object id="uploadid" height="0" width="0" classid="clsid:18B9E4BF-F21F-46B9-AD50-5CA62145426A" codebase="upfiles/xuploadfiles.cab">
+		<param name="Action" value="admin.php?file=xuploadfiles&act=upfiles">
+		<param name="MinFileSize" value="1">
+		<param name="MaxFileSize" value="{:$system[maxsize]*1024}">
+		<param name="MaxFileCount" value="10">
+		<param name="MaxTotalSize" value="{:$system[maxsize]*10*1024}">
+		<param name="AllowExt" value="{:str_replace(',',';',$system[filestype])}">
+		<param name="DenyExt" value="asp;aspx;php">
+		</object>
+		</div>
+	</div>
+<table>
+<tr>
+	<td id="ie_upfiles_cab" style="display:none;">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td style="display:none;"><textarea name="xu_filelist" id="xu_filelist" readonly></textarea></td>
+			<td><input type="button" value="大文件上传" onClick="xupload_upload();"></td>
+		</tr>
+		</table>
+	</td>
+	<td>&nbsp;</td>
+	<td>上传：</td>
+	<form method="post" action="admin.php?file=iframe&act=fckupfile.ok&input_name={:$input_name}" enctype="multipart/form-data">
+	<td><input type="file" name="upfile_id"></td>
+	<td>&nbsp;</td>
+	<td><input type="submit" value="上传"></td>
+	</form>
+	<td id="show_ff" style="display:none;">&nbsp;大文件上传请用FTP</td>
+</tr>
+</table>
+<script type="text/javascript">
+function xupload_upload()
+{
+	var filelist = $("xu_filelist");
+	var uploadid = $("uploadid");
+	filelist.value = uploadid.selectfiles();
+	var str = uploadid.uploadfile();
+	filelist.value='';
+	if(str == "OK" || !str || str == "")
+	{
+		return false;
+	}
+	else
+	{
+		var myEditor = parent.FCKeditorAPI.GetInstance("{:$input_name}");
+		if(myEditor.EditMode == parent.FCK_EDITMODE_WYSIWYG)
+		{
+			myEditor.InsertHtml(str);
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
+if(qgIE == "FF")
+{
+	$("ie_upfiles_cab").style.display = "none";
+	$("show_ff").style.display = "";
+}
+else
+{
+	$("ie_upfiles_cab").style.display = "";
+	$("show_ff").style.display = "none";
+}
+</script>
+</body>
+</html>

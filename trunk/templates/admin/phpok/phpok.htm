@@ -1,0 +1,210 @@
+<!-- inc:head -->
+<!-- 自定义代码管理 -->
+<!-- if($sysact == "add" || $sysact == "modify") -->
+<div class="notice" style="text-align:left;">
+	<a href="admin.php?file=index">系统首页</a>
+	&raquo; <a href="admin.php?file=phpok&act=list">自定义代码列表</a>
+	<!-- if($sysact == "modify") -->
+	&raquo; 编辑自定义代码：{:$rs[subject]}
+	<!-- else -->
+	&raquo; 添加新自定义代码
+	<!-- end -->
+	<input type="button" value="返回列表" onclick="tourl('admin.php?file=phpok&act=list')">
+</div>
+<form name="qgform" method="post" action="admin.php?file=phpok&act=viewok&id={:$id}" onsubmit="return chkadd();">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">主题：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="subject" id="subject" class="long_input" value="{:$rs[subject]}">	
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">标签：</div>
+	<div class="right"><input type="text" name="sign" id="sign" value="{:$rs[sign]}"> <input type="button" value="检查" onclick="tochk()"> <span class="clue_on">[标识符仅支持英文、数字及下划线且第一个不能是数字]</span></div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">状态：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="radio" name="status" value="0"{if(!$rs[status])} checked{end}></td>
+			<td>锁定</td>
+			<td><input type="radio" name="status" value="1"{if($rs[status] == 1)} checked{end}></td>
+			<td>正常</td>
+		</tr>
+		</table>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div><!-- inc:fckeditor --></div>
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" class="mybutton_01" id="mybutton_001" name="mybutton_001" value="提 交"> &nbsp; <span id="show_step" style="color:red;"></span></div>
+	<div style="clear:both;"></div>
+</div>
+</form>
+
+<script type="text/javascript">
+//全面检测信息
+function chkadd()
+{
+	var chkid = "{:$id}";//如果为空，表示当前动作是添加
+	var subject = $("subject").value;
+	$("show_step").innerHTML = "正在提交信息...";
+	if(!subject)
+	{
+		alert("自定义代码题头不能为空！");
+		return false;
+	}
+	//检测标识符
+	var sign = $("sign").value;
+	if(sign && sign != "undefined")
+	{
+		var msg = get_ajax("admin.php?file=phpok&act=chksign&id="+chkid+"&sign="+sign);
+		if(msg != "ok")
+		{
+			alert("标识符不符合系统要求，请检查");
+			$("show_step").innerHTML = "";
+			return false;
+		}
+	}
+	if(!sign || sign == "undefined")
+	{
+		var q = confirm("您没有设置标识符！按确定继续，按取消返回重新修改");
+		if(q == "0")
+		{
+			$("show_step").innerHTML = "";
+			return false;
+		}
+	}
+	$("mybutton_001").disabled = true;
+}
+//检测标识符是否符合要求
+function tochk()
+{
+	var chkid = "{:$id}";//如果为空，表示当前动作是添加
+	var sign = $("sign").value;
+	if(!sign || sign == "undefined")
+	{
+		alert("没有设置标识符");
+		return true;
+	}
+	var ajaxUrl = "admin.php?file=phpok&act=chksign&id="+chkid+"&sign="+sign;
+	var msg = get_ajax(ajaxUrl);
+	if(msg == "ok")
+	{
+		alert("该标识符正常且未被使用，您可以使用");
+	}
+	else if(msg == "used")
+	{
+		alert("该标识符已经被使用了，请重新设置一个");
+		$("sign").value = "";
+	}
+	else if(msg == "error")
+	{
+		alert("没有设置标识符");
+	}
+	else if(msg == "forbid")
+	{
+		alert("标识符格式不正确，标识符仅支持：\n\n　　英文、数字及下划线且第一个不能是数字");
+	}
+	else
+	{
+		alert("操作异常，无法进行验证");
+	}
+}
+</script>
+
+<!-- else -->
+<div class="notice" style="text-align:left;">
+	<a href="admin.php?file=index">系统首页</a>
+	&raquo; 自定义代码列表
+	<input type="button" value="添加新代码" onclick="tourl('admin.php?file=phpok&act=add')">
+</div>
+
+<div class="table" style="border-bottom:1px #D4D4D4 solid;">
+<div style="display:none;"><form method="post" action="admin.php?file=phpok&act=list" onsubmit="return"></div>
+&nbsp; 关键字：<input type="text" name="keywords" id="keywords" value="{:$keywords}">
+<select name="ifcheck" id="ifcheck">
+<option value="0"{if($ifcheck == "0" || !$ifcheck)} selected{end}>全部</option>
+<option value="1"{if($ifcheck == 1)} selected{end}>正常</option>
+<option value="2"{if($ifcheck == 2)} selected{end}>锁定</option>
+</select>
+<input type="submit" value="搜索">
+<div style="display:none;"></form></div>
+</div>
+
+<div>
+<table width="100%" style="layout:fixed;" cellpadding="0" cellspacing="0">
+<tr>
+	<td width="8%" class="t_sub">ID</td>
+	<td class="t_sub">名称</td>
+	<td width="15%" class="t_sub">标识</td>
+	<td width="20%" class="t_sub">操 作</td>
+</tr>
+<!-- $adlist AS $key=>$value -->
+<tr class="tr_out" onMouseOver="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td align='center' class="tc_left" height="25px">{:$value[id]}</td>
+	<td  align='left' class="tc_right">&nbsp;
+		<a href="admin.php?file=phpok&act=modify&id={:$value[id]}">{:$value[subject]}</a>
+	</td>
+	<td align="center" class="tc_right">{:$value[sign] ? $value["sign"] : "未设置"}</td>
+	<td align="center" class="tc_right">
+		<input type="button" value="编辑" class="mybutton_01" onclick="qg_view({:$value[id]})">
+		<!-- if($value[status]) -->
+		<input type="button" value="正常" class="mybutton_01" id="button_check_{:$value[id]}" onclick="qg_check({:$value[id]})">
+		<!-- else -->
+		<input type="button" value="锁定" class="mybutton_01" id="button_check_{:$value[id]}" style="color:red;" onclick="qg_check({:$value[id]})">
+		<!-- end -->
+		<input type="button" value="删除" class="mybutton_01" onclick="qg_delete({:$value[id]})">
+	</td>
+</tr>
+<!-- end -->
+</table>
+</div>
+
+
+<!-- if($pagelist) -->
+<div class="table">
+<table width="100%">
+<tr>
+	<td align="right">{:$pagelist}</td>
+</tr>
+</table>
+</div>
+<!-- end -->
+<script type="text/javascript">
+function searchto()
+{
+	var keywords = $("keywords").value;
+	var cateid = $("cateid").value;
+	var ifcheck = $("ifcheck").value;
+	var url = "admin.php?file=phpok&act=list&keywords=" + keywords + "&cateid=" + cateid + "&ifcheck="+ifcheck;
+	window.location.href=url;
+}
+function qg_check(id)
+{
+	window.location.href="admin.php?file=phpok&act=check&id="+id;
+}
+function qg_view(id)
+{
+	window.location.href="admin.php?file=phpok&act=modify&id="+id;
+}
+function qg_delete(id)
+{
+	//判断是否删除
+	question = confirm("确认删除该信息吗？特别说明，删除后无法恢复！");
+	if (question != "0")
+	{
+		window.location.href="admin.php?file=phpok&act=delete&id="+id;
+	}
+}
+</script>
+<!-- end -->
+<!-- inc:foot -->

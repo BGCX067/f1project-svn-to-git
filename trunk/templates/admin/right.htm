@@ -1,0 +1,38 @@
+<!-- inc:head -->
+<div class="table">
+	<div class="left">服务器：</div>
+	<div class="right">{:php_uname()}</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">PHP版本：</div>
+	<div class="right">{:PHP_VERSION}</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">全局变量：</div>
+	<div class="right"><!-- if(get_cfg_var("register_globals")) --><span style="font-weight:bold;color:green">ON</span><!-- else --><span style="font-weight:bold;color:red">OFF</span><!-- end --></div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">上传文件：</div>
+	<div class="right"><!-- if(get_cfg_var("file_uploads")) --><span style="font-weight:bold;color:green">允许，最大{:get_cfg_var(upload_max_filesize)}</span><!-- else --><span style="font-weight:bold;color:red">不允许上传附件</span><!-- end --></div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">脚本超时：</div>
+	<div class="right"><span style='font-weight:bold;color:red'>{run:echo get_cfg_var("max_execution_time")}</span> 秒</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">系统时间：</div>
+	<div class="right">{run:echo date("Y-m-d H:i:s",$system_time)}</div>
+	<div style="clear:both;"></div>
+</div>
+
+<!-- inc:foot -->

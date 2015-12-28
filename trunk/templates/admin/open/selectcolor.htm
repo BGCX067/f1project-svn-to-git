@@ -1,0 +1,47 @@
+<!-- inc:head -->
+<style type="text/css">
+body
+{
+	overflow:hidden;
+}
+.color_div
+{
+	margin:2px;/*FireFox浏览器*/
+	*margin:3px;/*IE浏览器使用*/
+	width:25px;
+	height:25px;
+	border:1px #808080 solid;
+}
+</style>
+<script type="text/javascript">
+var phpok_style = parent.$("{:$inputname}");
+function ok()
+{
+	parent.Layer.over();
+}
+function select_color(val)
+{
+	phpok_style.value = val;
+	ok();
+}
+
+function fontcolor_over(m,val)
+{
+	m.className = "table1";
+}
+</script>
+<div id="popen_msg" style="display:none"></div>
+
+<div class="table1">
+<table cellpadding="0" cellspacing="0" class="table">
+<tr>
+	<!-- $colorList AS $key=>$value -->
+	<td class="table" onclick="select_color('{:$value}')" onmouseover="fontcolor_over(this,'{:$value}')" onmouseout="this.className='table'"><div class="color_div" style="background:#{:$value};"><div></div></div></td>
+	<!-- row:8 -->
+	<!-- end -->
+</tr>
+</table>
+</div>
+
+</body>
+</html>

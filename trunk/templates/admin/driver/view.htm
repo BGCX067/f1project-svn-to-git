@@ -1,0 +1,60 @@
+<!-- inc:head -->
+
+<div class="notice">
+	&nbsp;<a href="admin.php?file=index">系统首页</a>
+	&raquo; <a href="admin.php?file=driver&act=list">留言列表</a>
+	&raquo; {:$rs[subject]} &nbsp;〔第一个编辑框是留言信息，第二个编辑框是回复信息〕
+	<input type="button" value="留言列表" onclick="tourl('admin.php?file=driver&act=list')">
+</div>
+
+<form name="qgform" method="post" action="admin.php?file=driver&act=viewok&id={:$id}">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">主题：<span style="color:red;">*</span></div>
+	<div class="right">
+		<span><input type="text" name="subject" id="subject" class="long_input" value="{:$rs[subject]}"></span>
+		<span class="clue_on">[发布时间：{:date("Y-m-d H:i:s",$rs[posdivate])} ]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">邮箱：</div>
+	<div class="right">
+		<input type="text" name="email" id="email" value="{:$rs[email]}">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">电话：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="phone" id="phone" value="{:$rs[phone]}">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">发布人：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="qguser" id="qguser" value="{:$rs[user]}">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">内容：</div>
+	<div class="right">
+		<textarea name="t_content" style="width:98%;height:150px;">{:$rs[content]}</textarea>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<div class="table">
+	<div class="left"></div>
+	<div class="right"><input type="submit" class="mybutton_01" value="提 交"> &nbsp; <span id="show_step" style="color:red;"></span></div>
+	<div class="clear"></div>
+</div>
+
+</form>
+<!-- inc:foot -->

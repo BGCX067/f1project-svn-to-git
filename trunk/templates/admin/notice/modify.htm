@@ -1,0 +1,99 @@
+<!-- inc:head -->
+
+<div class="notice">
+&raquo; 站内公告
+&raquo; 编辑信息
+<input type="button" value="公告列表" onclick="tourl('admin.php?file=notice&act=list')">
+<input type="button" value="添加公告" onclick="tourl('admin.php?file=notice&act=add')">
+</div>
+
+<div style="height:2px;"><div></div></div>
+
+<div class="none">
+<form method="post" action="admin.php?file=notice&act=modifyok&id={:$id}" onsubmit="return chk();">
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">公告主题：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="subject" id="subject" class="long_input" value="{:$rs[subject]}">
+		<img src="images/style.gif" title="主题样式" style="cursor:pointer;" align="absmiddle" onclick="subject_css(this)">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<input type="hidden" name="style" id="style" value="{:$rs[style]}">
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">链接网址：</div>
+	<div class="right">
+		<input type="text" name="notice_url" id="notice_url" class="long_input" value="{:$rs[url]}">
+		<span class="clue_on">[使用链接网址后内容无效]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">内容：</div>
+	<div class="right">{inc:fckeditor}</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">发布时间：</div>
+	<div class="right">
+		<input type="text" name="postdate" id="postdate" onclick="ShowDate('postdate');" value="{:date('Y-m-d H:i:s',$rs[postdate])}">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<br /><br />
+<div class="table">
+	<div class="left"></div>
+	<div class="right"><input type="submit" value="编辑站内公告"></div>
+	<div class="clear"></div>
+</div>
+
+</form>
+
+<script type="text/javascript">
+function subject_css(v)
+{
+	var vLeft = getLeft(v);
+	var vTop = getTop(v);
+	Layer.init('admin.php?file=open&act=style&inputname=style&subject_input=subject',375,170,vLeft,vTop);
+}
+function chk()
+{
+	var subject = $("subject").value;
+	if(!subject)
+	{
+		alert("公告主题不能为空");
+		return false;
+	}
+	var oEditor = FCKeditorAPI.GetInstance('content');
+	var content = oEditor.GetXHTML(true);
+	var url = $("notice_url").value;
+	if(!url && !content)
+	{
+		alert("链接和内容必须有一个不为空");
+		return false;
+	}
+	$("notice_submit").disabled = true;
+}
+//-----------对CSS样式进行显示设置
+var subject_css_msg = "{:$rs[style]}";
+if(subject_css_msg)
+{
+	var oldstyle = $("subject").style.cssText;
+	if(oldstyle)
+	{
+		$("subject").style.cssText = oldstyle + ";" +subject_css_msg;
+	}
+	else
+	{
+		$("subject").style.cssText = subject_css_msg;
+	}
+}
+</script>
+<!-- inc:foot -->

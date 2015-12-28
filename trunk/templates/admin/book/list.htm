@@ -1,0 +1,107 @@
+<!-- inc:head -->
+<div class="notice">
+<table cellpadding="1" cellspacing="1">
+<tr>
+	<td>&raquo; 留言管理</td>
+	<form method="post" action="admin.php?file=book&act=list">
+	<td>&nbsp;&raquo; 搜索：</td>
+	<td>
+		<select name="ifcheck" id="ifcheck">
+		<option value="0">全部</option>
+		<option value="1"{if($ifcheck == 1)} selected{end}>已审核</option>
+		<option value="2"{if($ifcheck == 2)} selected{end}>未审核</option>
+		</select>
+	</td>
+	<td><input type="text" name="keywords" id="keywords" value="{:$keywords}" /></td>
+	<td><input type="submit" value="搜索"></td>
+	</form>
+</tr>
+</table>
+</div>
+
+<table width='100%' cellpadding='0' cellspacing='0'>
+<tr>
+	<td width='3%' class="t_sub">&nbsp;</td>
+	<td width='8%' class="t_sub">ID</td>
+	<td class="t_sub">主题</td>
+	<td width="12%" class="t_sub">留言人</td>
+	<td width="9%" class="t_sub">留言时间</td>
+	<td width="13%" class="t_sub">操作</td>
+</tr>
+<!-- $booklist AS $key=>$value -->
+<tr class="tr_out" onMouseOver="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td height='28px' align='center' class="tc_left"><input type="checkbox" name="idin[]" value="{:$value[id]}"></td>
+	<td height='28px' align='center' class="tc_right">{:$value[id]}</td>
+	<td align='left' class="tc_right">&nbsp;{:$value[subject]}<!-- if(!$value[ifcheck]) --> <span style="color:red;">(未审核)</span><!-- end --></td>
+	<td align='center' class="tc_right">{:$value[user]}</td>
+	<td align='center' class="tc_right">{:date('Y-m-d',$value[postdate])}</td>
+	<td align='center' class="tc_right">
+		<input type="button" value="查看" onclick="to_modify({:$value[id]})">
+		<input type="button" value="删除" onclick="to_delete({:$value[id]});">
+	</td>
+</tr>
+<!-- end -->
+</table>
+
+<div class="table">
+<input type="button" value="全选" onclick="select_all()">
+<input type="button" value="反选" onclick="select_anti()">
+<input type="button" value="全不选" onclick="select_none()">
+<input type="button" value="审核" onclick="qg_pl('check')">
+<input type="button" value="取消审核" onclick="qg_pl('dcheck')">
+<input type="button" value="批量删除" onclick="qg_pl('delete')">
+</div>
+
+<script type="text/javascript">
+function to_modify(id)
+{
+	tourl("admin.php?file=book&act=view&id="+id);
+}
+function to_delete(id)
+{
+	var question = confirm("确认删除该内容信息吗？特别说明，删除后无法恢复！");
+	if (question != "0")
+	{
+		tourl("admin.php?file=book&act=delete&id="+id);
+	}
+}
+function qg_pl(qgtype)
+{
+	var idarray = new Array();//定义一个数组
+	var cv = document.getElementsByTagName("input");
+	var m = 0;
+	for(var i=0; i<cv.length; i++)
+	{
+		if(cv[i].type.toLowerCase() == "checkbox")
+		{
+			if(cv[i].checked)
+			{
+				idarray[m] = cv[i].value;
+				m++;
+			}
+		}
+	}
+	var id = idarray.join(",");
+	if(!id || id == "0")
+	{
+		alert("没有勾选要操作的主题！");
+		return false;
+	}
+	var url = "admin.php?file=book&act=plset&idlist="+id+"&qgtype="+qgtype;
+	if(qgtype == "delete")
+	{
+		question = confirm("确认删除该信息吗？特别说明，删除后无法恢复！");
+		if (question != "0")
+		{
+			tourl(url);
+		}
+	}
+	else
+	{
+		tourl(url);
+	}
+}
+</script>
+
+<div align="right">{:$pagelist}</div>
+<!-- inc:foot -->

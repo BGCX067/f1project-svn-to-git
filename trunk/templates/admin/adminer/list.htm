@@ -1,0 +1,35 @@
+<!-- inc:head -->
+<div class="notice">管理员列表</div>
+
+<table width='100%' cellpadding='0' cellspacing='0'>
+<tr>
+	<td width='8%' class="t_sub">ID</td>
+	<td width='15%' align='center' class="t_sub">管理员名称</td>
+	<td align='center' class="t_sub">管理城市</td>
+	<td width='25%' class="t_sub">操作</td>
+</tr>
+
+<!-- $list AS $key=>$value -->
+<tr class="tr_out" onmouseover="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td align="center" class="tc_left">{:$value[id]}</td>
+	<td align="center" class="tc_right">{:$value[username]}</td>
+	<td align="left" class="tc_right">&nbsp;{:$value[city_name]}</td>
+	<td align="center" class="tc_right">
+		<input type="button" value="编辑" onclick="tourl('index.php?file=adminer&act=set&id={:$value[id]}')">
+		<input type="button" value="删除" onclick="to_delete({:$value[id]})">
+	</td>
+</tr>
+<!-- end -->
+
+<script type="text/javascript">
+function to_delete(id)
+{
+	var q = confirm("确定要删除管理员信息吗？删除后所有该用户的权限都将清空，且该用户是不能恢复的");
+	if(q != "0")
+	{
+		tourl("index.php?file=adminer&act=delete&id="+id);
+	}
+}
+</script>
+
+<!-- inc:foot -->

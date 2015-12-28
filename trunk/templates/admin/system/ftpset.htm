@@ -1,0 +1,51 @@
+<!-- inc:head -->
+
+<div class="notice">&nbsp;&raquo; 附件上传配置 &nbsp; 〔注意不要使用单引号、双引号及美元符号〕</div>
+<div style="height:3px;"><div></div></div>
+<div style="display:none;"><form name="qgform" id="qgform" method="post" action="admin.php?file=system&act=ftpsetok" onsubmit="return SystemSet()"></div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">附件类型：</div>
+	<div class="right">
+		<input type="text" name="filestype" id="filestype" value="{:$rs[filestype]}" class="long_input">
+		<span class="clue_on">[允许上传的附件类型，多种类型用英文逗号隔开]</span>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">限制大小：</div>
+	<div class="right">
+		<input type="text" name="maxsize" id="maxsize" value="{:$rs[maxsize]}" class="short_input">
+		<span class="clue_on">[单位KB，不能为空 建议不要超过1024]</span>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">附件存储方式：</div>
+	<div class="right">
+		<select name="filesave" id="filesave">
+		<option value="">upfiles/</option>
+		<option value="Y/m/"{if($rs[filesave] == "Y/m/")} selected{end}>upfiles/年/月/</option>
+		<option value="Ym/d/"{if($rs[filesave] == "Ym/d/")} selected{end}>upfiles/年月/日/</option>
+		<option value="Y/m/d/"{if($rs[filesave] == "Y/m/d/")} selected{end}>upfiles/年/月/日/</option>
+		</select>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" id="qgbutton" class="mybutton_01" value="设 置"></div>
+	<div style="clear:both;"></div>
+</div>
+</form>
+
+<script type="text/javascript">
+function SystemSet()
+{
+	$("qgbutton").disabled = true;
+}
+</script>
+<!-- inc:foot -->

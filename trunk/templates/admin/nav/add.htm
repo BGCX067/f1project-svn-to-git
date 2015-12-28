@@ -1,0 +1,140 @@
+<!-- inc:head -->
+<!-- 添加导航栏 -->
+<div class="notice" style="text-align:left;">
+	<a href="admin.php?file=index">系统首页</a>
+	&raquo; <a href="admin.php?file=nav&act=list">导航栏管理</a>
+	&raquo; 添加
+	<input type="button" value="返回列表" onclick="tourl('admin.php?file=nav&act=list')">
+</div>
+<form method="post" action="admin.php?file=nav&act=addok" onsubmit="return chkadd();">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">导航栏属性：</div>
+	<div class="right">
+		<input type="radio" name="navtype" id="navtype_system" value="system" onclick="nav('system');">系统内部链接
+		<input type="radio" name="navtype" id="navtype_special" value="special" onclick="nav('special');">单页面链接
+		<input type="radio" name="navtype" id="navtype_other" value="other" onclick="nav('other');" checked>自定义链接
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div id="link_system" class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">要添加的链接：</div>
+	<div class="right">
+		<select name="systemid" id="systemid">
+		<option value="">请选择一个分类</option>
+		<!-- $catelist AS $key=>$value -->
+		<option value="{:$value[id]}">{:$value[space]}{:$value[catename]}</option>
+		<!-- end -->
+		</select>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div id="link_special" class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">请选择一个专题：</div>
+	<div class="right">
+		<select name="specialid" id="specialid">
+		<option value="">请选择...</option>
+		<!-- $spelist AS $key=>$value -->
+		<option value="{:$value[id]}">{:$value[subject]}</option>
+		<!-- end -->
+		</select>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div id="link_other">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">名称：</div>
+	<div class="right">
+		<input type="text" name="subject" id="subject">
+	</div>
+	<div style="clear:both;"></div>
+</div>
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">链接：</div>
+	<div class="right"><input type="text" name="link" id="link" class="long_input"></div>
+	<div style="clear:both;"></div>
+</div>
+
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">样式：</div>
+	<div class="right">
+		<input type="text" name="style" class="long_input">
+		<span style="clue_on"> [不熟悉请留空]</span>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">打开方式：</div>
+	<div class="right">
+		<input type="radio" name="target" value="0" checked>原窗口
+		<input type="radio" name="target" value="1">新窗口
+	</div>
+	<div style="clear:both;"></div>
+</div>
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">排序：</div>
+	<div class="right"><input type="text" name="taxis" id="taxis" value="255" class="short_input"><span style="clue_on"> [数值越小越往前靠，最大不超过255]</span>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" id="creat_button" class="mybutton_01" value="添加"></div>
+	<div style="clear:both;"></div>
+</div>
+</form>
+<script type="text/javascript">
+function nav(m)
+{
+	var o = "link_"+m;
+	$("link_system").style.display = "none";
+	$("link_special").style.display = "none";
+	$("link_other").style.display = "none";
+	$(o).style.display = "";
+}
+nav("other");
+function chkadd()
+{
+	var navtype_system = $("navtype_system").checked;
+	var navtype_special = $("navtype_special").checked;
+	var navtype_other = $("navtype_other").checked;
+	if(navtype_system)
+	{
+		var systemid = $("systemid").value;
+		if(!systemid)
+		{
+			alert("请选择好分类...");
+			return false;
+		}
+	}
+	else
+	{
+		if(navtype_special)
+		{
+			var specialid = $("specialid").value;
+			if(!specialid)
+			{
+				alert("请选择好专题...");
+				return false;
+			}
+		}
+		else
+		{
+			var subject = $("subject").value;
+			if(!subject)
+			{
+				alert("名称不允为空...");
+				return false;
+			}
+		}
+	}
+	$("creat_button").disabled = true;
+}
+</script>
+<!-- inc:foot -->

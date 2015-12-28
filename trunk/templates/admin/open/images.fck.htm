@@ -1,0 +1,104 @@
+<!-- inc:head -->
+<style type="text/css">
+body
+{
+	overflow:hidden;
+}
+</style>
+<script type="text/javascript">
+var Editor = parent.FCKeditorAPI.GetInstance("{:$inputname}");
+var EditorType = parent.FCK_EDITMODE_WYSIWYG;
+if(Editor.EditMode != EditorType)
+{
+	alert("请使用可视化编辑");
+	parent.Layer.over();
+}
+function ok()
+{
+	//
+	var msg = $("popen_msg").innerHTML;
+	Editor.InsertHtml(msg);
+	parent.Layer.over();
+}
+
+function qg_setpic()
+{
+	var mytype = $("popen_value_type").value;
+	if(!mytype)
+	{
+		mytype = "mark";
+	}
+	var msg_array = new Array();
+	var cv = document.getElementsByTagName("input");
+	var m = 0;
+	for(var i=0; i<cv.length; i++)
+	{
+		if(cv[i].type.toLowerCase() == "checkbox" && cv[i].checked)
+		{
+			var mid = cv[i].value;
+			if(mid)
+			{
+				var m_id = "input_message_"+mid;
+				var v = $(m_id).value;
+				if(v)
+				{
+					var vv = v.split("|,|");
+					if(mytype == "thumb")
+					{
+						msg_array[m] = "<div><img src='"+vv[0]+"' border='0'></div>";
+					}
+					else if(mytype == "mark")
+					{
+						msg_array[m] = "<div><img src='"+vv[1]+"' border='0'></div>";
+					}
+					else
+					{
+						msg_array[m] = "<div><img src='"+vv[2]+"' border='0'></div>";
+					}
+					m++;
+				}
+			}
+		}
+	}
+	var message = msg_array.join("");
+	if(message)
+	{
+		$("popen_msg").innerHTML = message;
+	}
+}
+</script>
+<div class="notice">
+<table cellpadding='0' cellspacing='1'>
+<tr>
+	<td>&nbsp;&raquo; 图片列表</td>
+	<td>
+		<select id="popen_value_type" onchange="qg_setpic();">
+			<option value="mark">水印图</option>
+			<option value="thumb">缩略图</option>
+			<option value="normal">原图</option>
+		</select>
+	</td>
+	<td>&nbsp;&raquo; 上传新图片：</td>
+	<td>
+		<div style="display:none;"><form method="post" action="admin.php?file=open&act=upok" enctype="multipart/form-data"></div>
+		<input type="hidden" name="return_url" value="{:rawurlencode(basename($_SERVER[PHP_SELF])."?".$_SERVER[QUERY_STRING])}">
+		<input type="file" name="upfilename"> <input type="submit" value="上传">
+		<div style="display:none;"></form></div>
+	</td>
+</tr>
+</table>
+</div>
+<div id="popen_msg" style="display:none"></div>
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+	<!-- $piclist AS $key=>$value -->
+	<td style="text-align:center;width:20%;height:100px;" align="center"><img src="{:$value[show_pic]}" width="90px" height="90px" border="0"><br /><input type="checkbox" name="pic_checkbox[]" value="{:$value[id]}" onclick="qg_setpic();"><input type="hidden" value="{:$value[input_message]}" id="input_message_{:$value[id]}" name="input_message_{:$value[id]}"></td>
+	<!-- row:6 -->
+	<!-- end -->
+</tr>
+</table>
+
+<div align="right">{:$pagelist}</div>
+
+</body>
+</html>

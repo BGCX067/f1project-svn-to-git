@@ -1,0 +1,384 @@
+<!-- inc:head -->
+
+<div class="notice">&nbsp;&raquo; GD功能全局参数设置 &nbsp; 〔注意不要使用单引号、双引号及美元符号〕</div>
+<div style="height:2px;"><div></div></div>
+<div style="display:none;"><form method="post" action="admin.php?file=system&act=gdsetok"></div>
+<div class="table">
+	<div class="left">GD功能：<span style="color:red;">*</span></div>
+	<div class="right">
+		<select name="isgd" id="isgd">
+		<option value="1"{if($rs[isgd])} selected{end}>启用</option>
+		<option value="0"{if(!$rs[isgd])} selected{end}>禁用</option>
+		</select>
+		<span class="clue_on"><!-- if(function_exists('imagecreate')) --><span style="color:darkgreen;">您的服务器支持GD功能，建议您启用</span><!-- else --><span style="color:darkred;">不支持GD功能，请禁用</span><!-- end --></span>
+	</div>
+	<div class="clear"></div>
+</div>
+<div class="table">
+	<div class="left">图片质量：</div>
+	<div class="right">
+		<select name="gdquality" id="gdquality">
+		<option value="60"{if($rs[gdquality] == "60")} selected{end}>较小文件</option>
+		<option value="80"{if($rs[gdquality] == "80")} selected{end}>较大品质</option>
+		<option value="100"{if($rs[gdquality] == "100")} selected{end}>百分百精度</option>
+		</select>
+		<span class="clue_on"> [该功能仅限jpg格式有效]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div style="height:2px;"><div></div></div>
+<div class="notice">&nbsp;&raquo; 缩略图相关参数设置</div>
+<div style="height:2px;"><div></div></div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">宽度：</div>
+	<div class="right">
+		<input type="text" name="thumbwidth" id="thumbwidth" value="{:$rs[thumbwidth]}" class="short_input">
+		<span class="clue_on">[设置缩略图的宽度，PHPOK官方推荐您使用 160 仅支持数字]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">高度：</div>
+	<div class="right">
+		<input type="text" name="thumbheight" id="thumbheight" value="{:$rs[thumbheight]}" class="short_input">
+		<span class="clue_on">[设置缩略图的高度，PHPOK官方推荐您使用 120 仅支持数字]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">是否使用版权：</div>
+	<div class="right">
+		<select name="thumbiscopyright" id="thumbiscopyright">
+		<option value="1"{if($rs[thumbiscopyright])} selected{end}>启用</option>
+		<option value="0"{if(!$rs[thumbiscopyright])} selected{end}>禁用</option>
+		</select>
+		<span class="clue_on">[若启用版权功能后需要设置相水的版权图片及添加位置]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">版权图片：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="thumbcopyright" id="thumbcopyright" class="short_input" value="{:$rs[thumbcopyright]}" style="width:160px;"></td>
+			<td>&nbsp;</td>
+			<td><img src="images/thumb.gif" onclick="open_getImg('thumbcopyright')" style="cursor:pointer;" border="0"></td>
+			<td class="clue_on">&nbsp;[基于网站根目录下的相对图片路径，如：{:'images'}/qinggan.jpg 建议使用jpg格式]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">版权图片透明度：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<select name="thumbtranspance" id="thumbtranspance">
+				<option value="0">完全透明</option>
+				<option value="10"{if($rs[thumbtranspance] == '10')} selected{end}>10</option>
+				<option value="20"{if($rs[thumbtranspance] == '20')} selected{end}>20</option>
+				<option value="30"{if($rs[thumbtranspance] == '30')} selected{end}>30</option>
+				<option value="40"{if($rs[thumbtranspance] == '40')} selected{end}>40</option>
+				<option value="50"{if($rs[thumbtranspance] == '50')} selected{end}>50（半透明）</option>
+				<option value="60"{if($rs[thumbtranspance] == '60')} selected{end}>60</option>
+				<option value="70"{if($rs[thumbtranspance] == '70')} selected{end}>70</option>
+				<option value="80"{if($rs[thumbtranspance] == '80')} selected{end}>80</option>
+				<option value="90"{if($rs[thumbtranspance] == '90')} selected{end}>90</option>
+				<option value="100"{if($rs[thumbtranspance] == '100')} selected{end}>不透明</option>
+				</select>
+			</td>
+			<td class="clue_on">&nbsp;[值越大，透明度越低，完全透明等同于不使用版权图片]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">图片位置：</div>
+	<div class="right">
+		<table style="border:1px #DDD solid;">
+		<tr>
+			<td><input type="radio" name="thumbposition" value="top-left"{if($rs[thumbposition] == "top-left")} checked{end}></td>
+			<td><input type="radio" name="thumbposition" value="top-middle"{if($rs[thumbposition] == "top-middle")} checked{end}></td>
+			<td><input type="radio" name="thumbposition" value="top-right"{if($rs[thumbposition] == "top-right")} checked{end}></td>
+		</tr>
+		<tr>
+			<td><input type="radio" name="thumbposition" value="middle-left"{if($rs[thumbposition] == "middle-left")} checked{end}></td>
+			<td><input type="radio" name="thumbposition" value="middle-middle"{if($rs[thumbposition] == "middle-middle")} checked{end}></td>
+			<td><input type="radio" name="thumbposition" value="middle-right"{if($rs[thumbposition] == "middle-right")} checked{end}></td>
+		</tr>
+		<tr>
+			<td><input type="radio" name="thumbposition" value="bottom-left"{if($rs[thumbposition] == "bottom-left")} checked{end}></td>
+			<td><input type="radio" name="thumbposition" value="bottom-middle"{if($rs[thumbposition] == "bottom-middle")} checked{end}></td>
+			<td><input type="radio" name="thumbposition" value="bottom-right"{if($rs[thumbposition] == "bottom-right")} checked{end}></td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">生成缩略图方式：</div>
+	<div class="right">
+		<select name="gdthumbtype" id="gdthumbtype">
+		<option value="0"{if(!$rs[gdthumbtype])} selected{end}>缩放法</option>
+		<option value="1"{if($rs[gdthumbtype])} selected{end}>裁剪法</option>
+		</select>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">边框设置：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<select name="thumbborder" id="thumbborder">
+				<option value="1">使用边框</option>
+				<option value="0"{if(!$system[thumbborder])} selected{end}>禁用边框</option>
+				</select>
+			</td>
+			<td>&nbsp;</td>
+			<td><input type="text" id="thumbcolor" name="thumbcolor" value="{:$rs[thumbcolor]}" class="short_input" onfocus="open_selectcolor(this,'thumbcolor')" /></td>
+			<td>&nbsp;</td>
+			<td class="clue_on">[如果启用边框，需在右侧栏里写上边框的颜色十六进制代码值，不含#号]</td>
+			<td>&nbsp;</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">间距设置：</div>
+	<div class="right">
+		<input type="text" name="thumbpadding" id="thumbpadding" class="short_input" value="{:$rs[thumbpadding]}">
+		<span class="clue_on"> [可以为0，建议设置1]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">背景填充色：</div>
+	<div class="right">
+		<input type="text" name="thumbbgcolor" id="thumbbgcolor" class="short_input" value="{:$rs[thumbbgcolor]}" onfocus="open_selectcolor(this,'thumbbgcolor')">
+		<span class="clue_on"> [设置间距后请设置好填充颜色]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">背景图片：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="thumbbgimg" id="thumbbgimg" class="short_input" value="{:$rs[thumbbgimg]}" style="width:160px;"></td>
+			<td>&nbsp;</td>
+			<td><img src="images/thumb.gif" onclick="open_getImg('thumbbgimg')" style="cursor:pointer;" border="0"></td>
+			<td class="clue_on">&nbsp;[基于网站根目录下的相对图片路径，如：{:'images'}/qinggan.jpg 建议使用jpg格式]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<div style="height:2px;"><div></div></div>
+<div class="notice">&nbsp;&raquo; 水印图片相关参数设置</div>
+<div style="height:2px;"><div></div></div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">宽度：</div>
+	<div class="right">
+		<input type="text" name="markwidth" id="markwidth" value="{:$rs[markwidth]}" class="short_input">
+		<span class="clue_on">[设置水印图片的宽度，PHPOK官方推荐您使用 540 仅支持数字]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">高度：</div>
+	<div class="right">
+		<input type="text" name="markheight" id="markheight" value="{:$rs[markheight]}" class="short_input">
+		<span class="clue_on">[设置水印图片的高度，PHPOK官方推荐您使用 405 仅支持数字]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">是否使用版权：</div>
+	<div class="right">
+		<select name="markiscopyright" id="markiscopyright">
+		<option value="1"{if($rs[markiscopyright])} selected{end}>启用</option>
+		<option value="0"{if(!$rs[markiscopyright])} selected{end}>禁用</option>
+		</select>
+		<span class="clue_on">[若启用版权功能后需要设置相水的版权图片及添加位置]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">版权图片：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="markcopyright" id="markcopyright" class="short_input" value="{:$rs[markcopyright]}" style="width:160px;"></td>
+			<td>&nbsp;</td>
+			<td><img src="images/thumb.gif" onclick="open_getImg('markcopyright')" style="cursor:pointer;" border="0"></td>
+			<td class="clue_on">&nbsp;[基于网站根目录下的相对图片路径，如：{:'images'}/qinggan.jpg 建议使用jpg格式]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">版权图片透明度：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<select name="marktranspance" id="marktranspance">
+				<option value="0">完全透明</option>
+				<option value="10"{if($rs[marktranspance] == '10')} selected{end}>10</option>
+				<option value="20"{if($rs[marktranspance] == '20')} selected{end}>20</option>
+				<option value="30"{if($rs[marktranspance] == '30')} selected{end}>30</option>
+				<option value="40"{if($rs[marktranspance] == '40')} selected{end}>40</option>
+				<option value="50"{if($rs[marktranspance] == '50')} selected{end}>50（半透明）</option>
+				<option value="60"{if($rs[marktranspance] == '60')} selected{end}>60</option>
+				<option value="70"{if($rs[marktranspance] == '70')} selected{end}>70</option>
+				<option value="80"{if($rs[marktranspance] == '80')} selected{end}>80</option>
+				<option value="90"{if($rs[marktranspance] == '90')} selected{end}>90</option>
+				<option value="100"{if($rs[marktranspance] == '100')} selected{end}>不透明</option>
+				</select>
+			</td>
+			<td class="clue_on">&nbsp;[值越大，透明度越低，完全透明等同于不使用版权图片]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">图片位置：</div>
+	<div class="right">
+		<table style="border:1px #DDD solid;">
+		<tr>
+			<td><input type="radio" name="markposition" value="top-left"{if($rs[markposition] == "top-left")} checked{end}></td>
+			<td><input type="radio" name="markposition" value="top-middle"{if($rs[markposition] == "top-middle")} checked{end}></td>
+			<td><input type="radio" name="markposition" value="top-right"{if($rs[markposition] == "top-right")} checked{end}></td>
+		</tr>
+		<tr>
+			<td><input type="radio" name="markposition" value="middle-left"{if($rs[markposition] == "middle-left")} checked{end}></td>
+			<td><input type="radio" name="markposition" value="middle-middle"{if($rs[markposition] == "middle-middle")} checked{end}></td>
+			<td><input type="radio" name="markposition" value="middle-right"{if($rs[markposition] == "middle-right")} checked{end}></td>
+		</tr>
+		<tr>
+			<td><input type="radio" name="markposition" value="bottom-left"{if($rs[markposition] == "bottom-left")} checked{end}></td>
+			<td><input type="radio" name="markposition" value="bottom-middle"{if($rs[markposition] == "bottom-middle")} checked{end}></td>
+			<td><input type="radio" name="markposition" value="bottom-right"{if($rs[markposition] == "bottom-right")} checked{end}></td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">生成水印图的方式：</div>
+	<div class="right">
+		<select name="gdmarktype" id="gdmarktype">
+		<option value="0"{if(!$rs[gdmarktype])} selected{end}>缩放法</option>
+		<option value="1"{if($rs[gdmarktype])} selected{end}>裁剪法</option>
+		</select>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">边框设置：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<select name="markborder" id="markborder">
+				<option value="1">使用边框</option>
+				<option value="0"{if(!$system[markborder])} selected{end}>禁用边框</option>
+				</select>
+			</td>
+			<td>&nbsp;</td>
+			<td><input type="text" id="markcolor" name="markcolor" value="{:$rs[markcolor]}" class="short_input" onfocus="open_selectcolor(this,'markcolor')" /></td>
+			<td>&nbsp;</td>
+			<td class="clue_on">[如果启用边框，需在右侧栏里写上边框的颜色十六进制代码值，不含#号]</td>
+			<td>&nbsp;</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">间距设置：</div>
+	<div class="right">
+		<input type="text" name="markpadding" id="markpadding" class="short_input" value="{:$rs[markpadding]}">
+		<span class="clue_on"> [可以为0，建议设置1]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">背景填充色：</div>
+	<div class="right">
+		<input type="text" name="markbgcolor" id="markbgcolor" class="short_input" value="{:$rs[markbgcolor]}" onfocus="open_selectcolor(this,'markbgcolor')">
+		<span class="clue_on"> [设置间距后请设置好填充颜色]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">背景图片：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="markbgimg" id="markbgimg" class="short_input" value="{:$rs[markbgimg]}" style="width:160px;"></td>
+			<td>&nbsp;</td>
+			<td><img src="images/thumb.gif" onclick="open_getImg('markbgimg')" style="cursor:pointer;" border="0"></td>
+			<td class="clue_on">&nbsp;[基于网站根目录下的相对图片路径，如：{:'images'}/qinggan.jpg 建议使用jpg格式]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" id="qgbutton" class="mybutton_01" value="设 置"></div>
+	<div class="clear"></div>
+</div>
+</form>
+
+<script type="text/javascript">
+function open_selectcolor(v,input)
+{
+	var vLeft = getLeft(v);
+	var vTop = getTop(v);
+	Layer.init('admin.php?file=open&act=selectcolor&inputname='+input,290,188,vLeft,vTop);
+}
+function open_getImg(v)
+{
+	Layer.init('admin.php?file=open&act=getgdimg&inputname='+v,500,500);
+}
+</script>
+<!-- inc:foot -->

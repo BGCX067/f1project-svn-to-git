@@ -1,0 +1,79 @@
+<!-- inc:head -->
+
+<div class="notice">
+	&nbsp;<a href="admin.php?file=index">系统首页</a>
+	&raquo; <a href="admin.php?file=book&act=list">留言列表</a>
+	&raquo; {:$rs[subject]} &nbsp;〔第一个编辑框是留言信息，第二个编辑框是回复信息〕
+	<input type="button" value="留言列表" onclick="tourl('admin.php?file=book&act=list')">
+</div>
+
+<form name="qgform" method="post" action="admin.php?file=book&act=viewok&id={:$id}">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">审核：</div>
+	<div class="right">
+		<table cellpadding="1" cellspacing="0">
+		<tr>
+			<td><input type="radio" name="ifcheck" value="0"{if(!$rs[ifcheck])} checked{end}></td>
+			<td>未审核</td>
+			<td><input type="radio" name="ifcheck" value="1"{if($rs[ifcheck])} checked{end}></div>
+			<td>已审核</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">主题：<span style="color:red;">*</span></div>
+	<div class="right">
+		<span><input type="text" name="subject" id="subject" class="long_input" value="{:$rs[subject]}"></span>
+		<span class="clue_on">[发布时间：{:date("Y-m-d H:i:s",$rs[posdivate])} ]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">邮箱：</div>
+	<div class="right">
+		<input type="text" name="email" id="email" value="{:$rs[email]}">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">发布人：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="qguser" id="qguser" value="{:$rs[user]}">
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">回复时间：</div>
+	<div class="right"><input type="text" name="replydate" id="replydate" value="{run:echo date('Y-m-d H:i:s',$system_time)}" onclick="ShowDate('replydate')"> <span class="clue_on"> [一般不用修改回复时间]</span></div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">内容：</div>
+	<div class="right">
+		<textarea name="t_content" style="width:98%;height:150px;">{:$rs[content]}</textarea>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">回复：</div>
+	<div class="right">{inc:fckeditor}</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left"></div>
+	<div class="right"><input type="submit" class="mybutton_01" value="提 交"> &nbsp; <span id="show_step" style="color:red;"></span></div>
+	<div class="clear"></div>
+</div>
+
+</form>
+<!-- inc:foot -->

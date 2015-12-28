@@ -1,0 +1,114 @@
+<!-- inc:head -->
+
+<div class="notice">
+&raquo; 编辑链接信息
+<input type="button" value="返回列表" onclick="tourl('admin.php?file=link&act=list')">
+</div>
+
+<div style="height:2px;"><div></div></div>
+
+<div class="none">
+<form method="post" action="admin.php?file=link&act=setok&id={:$id}" onsubmit="return chk();">
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">名称：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="name" id="name" class="long_input" value="{:$rs[name]}">
+		<span class="clue_on">[请填写名称]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">组：</div>
+	<div class="right">
+		<select name="typeid" id="typeid">
+		<option value="0">请选择组</option>
+		<!-- $grouplist AS $key=>$value -->
+		<option value="{:$key}"{if($rs[typeid] == $key)} selected{end}>{:$value}</option>
+		<!-- end -->
+		</select>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">链接网址：</div>
+	<div class="right">
+		<input type="text" name="qgurl" id="qgurl" class="long_input" value="{:$rs[url]}">
+		<span class="clue_on">[使用链接网址后内容无效，外链均在新窗口打开]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">图片：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="picture" id="picture" class="long_input" value="{:$rs[picture]}"></td>
+			<td>&nbsp;</td>
+			<td><input type="button" value="选择图片" onclick="add_mark()"></td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">排序：</div>
+	<div class="right">
+		<input type="text" name="taxis" id="taxis" class="short_input" value="{:$rs[taxis]}">
+		<span class="clue_on">[最越小越往前靠，不能超过255]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">宽度和高度：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="width" class="short_input" value="{:$rs[width]}"></td>
+			<td>&nbsp;-&nbsp;</td>
+			<td><input type="text" name="height" class="short_input" value="{:$rs[height]}"></td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<br /><br />
+<div class="table">
+	<div class="left"></div>
+	<div class="right"><input type="submit" id="link_submit" name="link_submit" value="提 交"></div>
+	<div class="clear"></div>
+</div>
+
+</form>
+
+<script type="text/javascript">
+function chk()
+{
+	var subject = $("name").value;
+	if(!subject)
+	{
+		alert("名称不能为空");
+		return false;
+	}
+	var url = $("qgurl").value;
+	if(!url)
+	{
+		alert("链接不能为空");
+		return false;
+	}
+	$("link_submit").disabled = true;
+}
+function add_mark()
+{
+	var url = "admin.php?file=open&act=mark&input_name=picture";
+	Layer.init(url,600,420);
+}
+</script>
+<!-- inc:foot -->

@@ -1,0 +1,92 @@
+<!-- inc:head -->
+<div class="notice">
+&raquo; 单页面管理
+<input type="button" value="添加新信息" onclick="tourl('admin.php?file=onepage&act=add')">
+</div>
+
+<table width='100%' cellpadding='0' cellspacing='0'>
+<tr>
+	<td width='8%' class="t_sub">ID</td>
+	<td class="t_sub">名称</td>
+	<td width="15%" class="t_sub">组</td>
+	<td width="15%" class="t_sub">外链</td>
+	<td width="7%" class="t_sub">排序</td>
+	<td width="17%" class="t_sub">操作</td>
+</tr>
+<!-- $rslist AS $key=>$value -->
+<tr class="tr_out" onMouseOver="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td height='28px' align='center' class="tc_left">{:$value[id]}</td>
+	<td align='left' class="tc_right">&nbsp;<span style="{:$value[style]}">{:$value[subject]}</span><!-- if(!$value[ifcheck]) --> <span style="color:red;">(已禁用)</span><!-- end --></td>
+	<td align='center' class="tc_right">{:$value[groupname]}</td>
+	<td align='center' class="tc_right"><!-- if($value[url]) -->是<a href="{:$value[url]}" target="_blank" style="color:red;">(点此打开)</a><!-- else -->否<!-- end --></td>
+	<td align='center' class="tc_right">{:$value[taxis]}</td>
+	<td align='center' class="tc_right">
+		<input type="button" value="编辑" onclick="to_modify({:$value[id]})">
+		<input type="button" value="删除" onclick="to_delete({:$value[id]});">
+	</td>
+</tr>
+<!-- end -->
+</table>
+<div class="notice">
+&raquo; 单页面分组
+</div>
+<table width='100%' cellpadding='0' cellspacing='0'>
+<tr>
+	<td width='10%' class="t_sub">ID</td>
+	<td class="t_sub">名称</td>
+	<td width="20%" class="t_sub">操作</td>
+</tr>
+<!-- $grouplist AS $key=>$value -->
+<form method="post" action="admin.php?file=onepage&act=groupset&id={:$value[id]}">
+<tr class="tr_out" onMouseOver="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td height='28px' align='center' class="tc_left">{:$value[id]}</td>
+	<td align='left' class="tc_right">&nbsp;
+		<input type="text" name="groupname" value="{:$value[groupname]}" />
+	</td>
+	<td align='center' class="tc_right">
+		<input type="submit" value="编辑">
+		&nbsp;
+		<input type="button" value="删除" onclick="to_del({:$value[id]});">
+	</td>
+</tr>
+</form>
+<!-- end -->
+<form method="post" action="admin.php?file=onepage&act=groupset">
+<tr class="tr_out" onMouseOver="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td height='28px' align='center' class="tc_left">添加：</td>
+	<td align='left' class="tc_right">&nbsp;
+		<input type="text" name="groupname" />
+	</td>
+	<td align='center' class="tc_right">
+		<input type="submit" value="添加">
+		&nbsp;
+		<input type="button" value="删除" disabled>
+	</td>
+</tr>
+</form>
+</table>
+
+<script type="text/javascript">
+function to_modify(id)
+{
+	tourl("admin.php?file=onepage&act=modify&id="+id);
+}
+function to_delete(id)
+{
+	var question = confirm("确认删除该单页面信息吗？特别说明，删除后无法恢复！");
+	if (question != "0")
+	{
+		tourl("admin.php?file=onepage&act=delete&id="+id);
+	}
+}
+function to_del(id)
+{
+	var q = confirm("确认要删除分类组吗？特别说明，已经存在内容的分组不允许删除，删除后不能恢复");
+	if(q != "0")
+	{
+		tourl("admin.php?file=onepage&act=groupdel&id="+id);
+	}
+}
+</script>
+
+<!-- inc:foot -->

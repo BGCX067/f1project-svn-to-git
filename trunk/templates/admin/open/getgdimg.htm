@@ -1,0 +1,42 @@
+<!-- inc:head -->
+<style type="text/css">
+body
+{
+	overflow:hidden;
+}
+.color_div
+{
+	margin:2px;/*FireFox浏览器*/
+	*margin:3px;/*IE浏览器使用*/
+	width:25px;
+	height:25px;
+	border:1px #808080 solid;
+}
+</style>
+<script type="text/javascript">
+var phpok_style = parent.$("{:$inputname}");
+function ok()
+{
+	parent.Layer.over();
+}
+function select_color(val)
+{
+	phpok_style.value = val;
+	ok();
+}
+
+function fontcolor_over(m,val)
+{
+	m.className = "table1";
+}
+</script>
+<div class="notice">&nbsp;这里读取的是网站images目录下的图片信息</div>
+<div style="height:2px;"><div></div></div>
+<!-- $rslist AS $key=>$value -->
+<div class="table" onclick="select_color('{:$value}')" onmouseover="fontcolor_over(this,'{:$value}')" onmouseout="this.className='table'" style="cursor:pointer;">
+<div style="padding:5px;"><img src="{:$value}" border="0"></div>
+</div>
+<!-- end -->
+
+</body>
+</html>

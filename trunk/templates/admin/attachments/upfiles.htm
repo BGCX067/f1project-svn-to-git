@@ -1,0 +1,23 @@
+<!-- inc:head -->
+<div class="notice">单个文件大小建议不要超过{:$system[maxsize]}KB，总文件大小不要超过系统限制({:get_cfg_var(upload_max_filesize)})，如果超过，建议您使用大文件上传</div>
+
+<form method="post" action="admin.php?file=attachments&act=upfiles.ok" enctype="multipart/form-data">
+<!-- $up_array AS $key=>$value -->
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">&nbsp;</div>
+	<div class="right">
+		名称：<input type="text" name="setname_{:$value}">
+		上传：<input type="file" name="iframeUpload_{:$value}" style="width:300px;">
+	</div>
+	<div class="clear"></div>
+</div>
+<!-- end -->
+<br />
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" value="确认上传"></div>
+	<div class="clear"></div>
+</div>
+</form>
+
+<!-- inc:foot -->

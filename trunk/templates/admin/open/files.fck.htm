@@ -1,0 +1,65 @@
+<!-- inc:head -->
+<style type="text/css">
+body
+{
+	overflow:hidden;
+}
+</style>
+<script type="text/javascript">
+var Editor = parent.FCKeditorAPI.GetInstance("{:$input_name}");
+var EditorType = parent.FCK_EDITMODE_WYSIWYG;
+if(Editor.EditMode != EditorType)
+{
+	alert("请使用可视化编辑");
+	parent.Layer.over();
+}
+function ok()
+{
+	var idarray = new Array();//定义一个数组
+	var cv = document.getElementsByTagName("input");
+	var m = 0;
+	for(var i=0; i<cv.length; i++)
+	{
+		if(cv[i].type.toLowerCase() == "checkbox" && cv[i].checked)
+		{
+			var mid = cv[i].value;
+			var tmpname = "tmpname_"+mid;
+			var tmp = $(tmpname).value;
+			idarray[m] = "<div><a href='dfile.php?id="+mid+"' target='_blank'>点击下载附件</a> &nbsp; "+tmp+"</div>";
+			m++;
+		}
+	}
+	var msg = idarray.join("\n");
+	if(!msg || msg == "0")
+	{
+		alert("请选择要添加的文件！");
+		return false;
+	}
+	Editor.InsertHtml(msg);
+	parent.Layer.over();
+}
+</script>
+<div class="notice">
+<div style="display:none;"><form method="post" action="admin.php?file=open&act=upok" enctype="multipart/form-data"></div>
+<input type="hidden" name="return_url" value="{:rawurlencode(basename($_SERVER[PHP_SELF])."?".$_SERVER[QUERY_STRING])}">
+<input type="file" name="upfilename"> <input type="submit" value="上传">
+<div style="display:none;"></form></div>
+</div>
+<table width='100%' cellpadding='0' cellspacing='0'>
+<tr>
+	<td width='5%' class="t_sub">&nbsp;</td>
+	<td width='10%' class="t_sub">ID</td>
+	<td class="t_sub">文件</td>
+	<td width="25%" class="t_sub">上传时间</td>
+</tr>
+<!-- $rslist AS $key=>$value -->
+<tr class="tr_out" onMouseOver="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td height='23px' align='center' class="tc_left"><input type="checkbox" name="idlist[]" value="{:$value[id]}"><input type="hidden" id="tmpname_{:$value[id]}" value="{:$value[tmpname]}"></td>
+	<td align='center' class="tc_right">{:$value[id]}</td>
+	<td align='left' class="tc_right">&nbsp;{:$value[tmpname]}</td>
+	<td align='center' class="tc_right">{:date("Y-m-d",$value[postdate])}</td>
+</tr>
+<!-- end -->
+</table>
+</body>
+</html>

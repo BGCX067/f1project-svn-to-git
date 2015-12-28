@@ -1,0 +1,142 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 transitional//en" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<Meta http-equiv="Expires" Content="Wed, 26 Feb 1997 08:21:57 GMT">
+<Meta http-equiv="Pragma" Content="No-cach">
+<title>后台管理</title>
+<script type="text/javascript" src="images/admin.js"></script>
+<base target="frame_right">
+<style type="text/css">
+body
+{
+	margin:0px;
+	padding:0px;
+	background: #124F62;
+}
+td
+{
+	font-size:12px;
+}
+a
+{
+	font-size:12px;
+	text-decoration:none;
+	color:#FFF;
+	blr:expression(this.onFocus=this.blur());
+}
+a:hover
+{
+	font-size:12px;
+	text-decoration:underline;
+	color:red;
+}
+a:focus
+{
+	-moz-outline-style: none;
+}
+ol,ul
+{
+	margin:0px;
+	padding-left:8px;
+	padding-top:5px;
+	list-style-type:none;
+	font-size:12px;
+}
+
+.root
+{
+	padding-left:0px;
+	color: #FF6600;
+	font-weight:bold;
+	font-size:14px;
+}
+
+.son
+{
+	padding-left:15px;
+	color:#000;
+	font-size:12px;
+	line-height:20px;
+	height:20px;
+}
+
+
+.click
+{
+	padding-left:15px;
+	color:#000;
+	background:#FFF;
+	border-top:1px #000 solid;
+	border-bottom:1px #000 solid;
+	border-left:1px #000 solid;
+	line-height:20px;
+	height:20px;
+}
+.click a
+{
+	color:#000;
+}
+</style>
+</head>
+
+<body>
+<div id="bodyid" style="padding-top:0px;">
+	<div style="height:5px;"></div>
+	<ol>
+		<li class="root">个人管理</li>
+		<li class="son" id="son_setpass"><a href="admin.php?file=adminer&act=setpass" onclick="change_this('son_setpass')">更改个人密码</a></li>
+	</ol>
+	<ol>
+	<!-- run:$tmp_menu_id=array(); -->
+	<!-- $menulist AS $key=>$value -->
+		<!-- if(!$value[parentid]) -->
+		<li class="root">{:$value[name]}</li>
+		<!-- else -->
+		<!-- run:$tmp_menu_id[$key] = "son_menu_".$key  -->
+		<li class="son" id="son_menu_{:$key}"><a href="{:$value[menu_url]}" onclick="change_this('son_menu_{:$key}')">{:$value[name]}</a></li>
+		<!-- end -->
+	<!-- end -->
+	<!-- run:$tmpMenuId = count($tmp_menu_id)>0 ? ",".implode(",",$tmp_menu_id) : "" -->
+	</ol>
+	<script type="text/javascript">
+	function change_this(high_id)
+	{
+		var tmpId = "son_setpass{:$tmpMenuId}";
+		//var id_list = new Array();
+		var id_list = tmpId.split(",");
+		var id_count = id_list.length;
+		for(var i=0;i<id_count;i++)
+		{
+			if(id_list[i] == high_id)
+			{
+				$(high_id).className = "click";
+			}
+			else
+			{
+				$(id_list[i]).className = "son";
+			}
+		}
+	}
+	</script>
+
+	<!-- if(file_exists(SYSTEM_ROOT."admin/".$sysact."/index.php")) -->
+	<script type="text/javascript">
+		window.parent.frames["frame_right"].location.href = "admin.php?file={:$sysact}&act=index";
+	</script>
+	<!-- else -->
+	<script type="text/javascript">
+		window.parent.frames["frame_right"].location.href = "admin.php?file=right";
+	</script>
+	<!-- end -->
+
+</div>
+<script type="text/javascript">
+function killErrors()
+{
+	return true;
+}
+window.onerror = killErrors;
+</script>
+</body>
+</html>

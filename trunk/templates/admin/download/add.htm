@@ -1,0 +1,321 @@
+<!-- inc:head -->
+
+<div class="notice">
+&raquo; 添加下载信息
+<input type="button" value="下载信息列表" onclick="tourl('admin.php?file=download&act=list')">
+</div>
+
+<div style="height:2px;"><div></div></div>
+
+<div class="none">
+<form method="post" action="admin.php?file=download&act=addok" onsubmit="return chk();">
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">主题：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="subject" id="subject" class="long_input">
+		<img src="images/style.gif" title="主题样式" style="cursor:pointer;" align="absmiddle" onclick="subject_css(this)">
+		<span class="clue_on">[请填写名称]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<input type="hidden" name="style" id="style">
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">分类：<span style="color:red;">*</span></div>
+	<div class="right">
+		<select name="cateid" id="cateid">
+		<option value="0">请选择一个分类</option>
+		<!-- $catelist AS $key=>$value -->
+		<option value="{:$value[id]}">{:$value[space]}{:$value[catename]}</option>
+		<!-- end -->
+		</select>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">审核：</div>
+	<div class="right">
+		<input type="checkbox" name="ifcheck" id="ifcheck" checked> <span class="clue_on">[未审核请将打勾去掉，反之请打上勾]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">属性：</div>
+	<div class="right">
+		<input type="checkbox" name="istop" id="istop" value="1"> 置顶 
+		<input type="checkbox" name="isvouch" id="isvouch" value="1"> 推荐 
+		<input type="checkbox" name="isbest" id="isbest" value="1"> 精华 
+		&nbsp;自定义模板：
+		<input type="text" name="tplfile" id="tplfile">
+		<span class="clue_on">[不清楚请留空]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">排序：</div>
+	<div class="right">
+		<input type="text" name="taxis" id="taxis" class="short_input" value="0">
+		<span class="clue_on">[值越大越往前靠]</span>
+		&nbsp; 点击率：
+		<input type="text" name="hits" id="hits" class="short_input" value="0">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">发布人/时间：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="author" id="author" value="{:$_SESSION[admin][user]}">
+		&nbsp; 发布时间：
+		<input type="text" name="postdate" id="postdate" onclick="ShowDate('postdate');">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">缩略图：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="thumb" id="thumb" class="long_input" readonly></td>
+			<td>&nbsp;</td>
+			<td><input type="button" value="添加" onclick="add_thumb()"></td>
+			<td>&nbsp;</td>
+			<td><input type="button" value="删除" onclick="clear_thumb()"></td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">大图：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="mark" id="mark" class="long_input" readonly></td>
+			<td>&nbsp;</td>
+			<td><input type="button" value="添加" onclick="add_mark()"></td>
+			<td>&nbsp;</td>
+			<td><input type="button" value="删除" onclick="clear_mark()"></td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">文件大小：</div>
+	<div class="right">
+		<input type="text" name="softsize" id="softsize" class="short_input">
+		<span class="clue_on">&nbsp;[设置文件的大小，如：100KB，3.5MB 需自己加上相关单位]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">授权方式：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="softlicense" id="softlicense"></td>
+			<td>&nbsp;</td>
+			<td>
+				<select onchange="to_change('softlicense',this.value)">
+					<option value="">请选择授权方式</option>
+					<option value="免费软件">免费软件</option>
+					<option value="商业软件">商业软件</option>
+					<option value="LGPL">LGPL</option>
+					<option value="试用软件">试用软件</option>
+				</select>
+			</td>
+			<td class="clue_on">&nbsp;[请选择授权方式，如无请手动填写]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">文件语言：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="softlang" id="softlang"></td>
+			<td>&nbsp;</td>
+			<td>
+				<select onchange="to_change('softlang',this.value)">
+					<option value="">请选择语言</option>
+					<option value="简体中文">简体中文</option>
+					<option value="繁体中文">繁体中文</option>
+					<option value="多国语言">多国语言</option>
+					<option value="English">English</option>
+				</select>
+			</td>
+			<td class="clue_on">&nbsp;[请选择文件的语言种类，如果选项中没有，请手动填写]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">应用平台/类型：</div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td><input type="text" name="softsystem" id="softsystem" style="width:270px;"></td>
+			<td>&nbsp;</td>
+			<td>
+				<select onchange="to_change('softsystem',this.value)">
+					<option value="">请选择可应用的平台</option>
+					<option value="不限">不限</option>
+					<option value="Windows 98/2000">Windows 98/2000</option>
+					<option value="Windows XP/2003/Vista">Windows XP/2003/Vista</option>
+					<option value="Unix/Linux">Unix/Linux</option>
+					<option value="Mac">Mac</option>
+					<option value="Windows/Unix/Linux">Windows/Unix/Linux</option>
+					<option value="PHP">PHP</option>
+					<option value="ASP">ASP</option>
+					<option value="ASP.Net">ASP.Net</option>
+					<option value="JSP">JSP</option>
+					<option value="Python">Python</option>
+					<option value=".doc文档">.doc文档</option>
+					<option value=".xls文档">.xls文档</option>
+				</select>
+			</td>
+			<td class="clue_on">&nbsp;[没有相关选项时请手动填写]</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">演示网址：</div>
+	<div class="right">
+		<input type="text" name="softdemo" id="softdemo" class="long_input">
+		<span class="clue_on">&nbsp;[如果有相关演示地址，请填写]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">开发者姓名：</div>
+	<div class="right">
+		<input type="text" name="softadmin" id="softadmin">
+		<span class="clue_on">&nbsp;[请填写软件的开发者的姓名，团队开发建议写团队名称]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">开发者邮箱：</div>
+	<div class="right">
+		<input type="text" name="softemail" id="softemail">
+		<span class="clue_on">&nbsp;[请填写该软件的开发者的邮箱，团队请写团队公共邮箱]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">简要描述：</div>
+	<div class="right">
+		<textarea id="clou" name="clou" class="long_input" style="height:60px;"></textarea>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">链接网址：</div>
+	<div class="right">
+		<input type="text" name="download_url" id="download_url" class="long_input">
+		<span class="clue_on">[使用链接网址功能，内容将会失败]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">内容说明：</div>
+	<div class="right">{inc:fckeditor}</div>
+	<div class="clear"></div>
+</div>
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right">[添加下载地址，请点击：<span style="color:red;">文件</span> 选中要提供下载的文件即可</div>
+	<div class="clear"></div>
+</div>
+
+<br /><br />
+<div class="table">
+	<div class="left"></div>
+	<div class="right"><input type="submit" id="download_submit" name="download_submit" value="添 加"></div>
+	<div class="clear"></div>
+</div>
+
+</form>
+
+<script type="text/javascript">
+function subject_css(v)
+{
+	var vLeft = getLeft(v);
+	var vTop = getTop(v);
+	Layer.init('admin.php?file=open&act=style&inputname=style&subject_input=subject',375,170,vLeft,vTop);
+}
+function chk()
+{
+	var subject = $("subject").value;
+	if(!subject)
+	{
+		alert("名称不能为空");
+		return false;
+	}
+	var cateid = $("cateid").value;
+	if(!cateid || cateid == "0")
+	{
+		alert("请选择一个分类");
+		return false;
+	}
+	var url = $("download_url").value;
+	if(!url)
+	{
+		alert("下载地址不能为空");
+		return false;
+	}
+	$("download_submit").disabled = true;
+}
+function clear_thumb()
+{
+	$("thumb").value = "";
+}
+function add_thumb()
+{
+	var url = "admin.php?file=open&act=thumb&input_name=thumb";
+	Layer.init(url,600,420);
+}
+function clear_mark()
+{
+	$("mark").value = "";
+}
+function add_mark()
+{
+	var url = "admin.php?file=open&act=mark&input_name=mark";
+	Layer.init(url,600,420);
+}
+function to_change(v,val)
+{
+	if(val && val != "undefined")
+	{
+		$(v).value = val;
+	}
+}
+</script>
+<!-- inc:foot -->

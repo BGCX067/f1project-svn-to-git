@@ -1,0 +1,37 @@
+<!-- inc:head -->
+<!-- 默认菜单 -->
+
+<div class="table table1">
+	<div class="left"><input type="button" value="添加菜单" onclick="tourl('admin.php?file=sysmenu&act=add')"></div>
+	<div class="right">菜单管理，不能删除带有子菜单的菜单，系统默认提供的菜单不允许删除</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div style="height:3px;"><div></div></div>
+<!-- $menulist AS $key=>$value -->
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">
+		<!-- if($value[ifsystem]) -->
+		<input type="button" value="编辑" disabled>
+		<input type="button" value="删除" disabled>
+		<!-- else -->
+		<input type="button" value="编辑" onclick="tourl('admin.php?file=sysmenu&act=modify&id={:$value[id]}')">
+		<input type="button" value="删除" onclick="to_delete({:$value[id]})">
+		<!-- end -->
+	</div>
+	<div class="right">&nbsp;{:$value[space]}&nbsp;{:$value[name]}<span class="clue_on">(order:{:$value[taxis]})</span> &nbsp; &nbsp;<!-- if(!$value[status]) --><span style="color:red;">(暂停使用)</span><!-- end --></div>
+	<div style="clear:both;"></div>
+</div>
+<!-- end -->
+
+<script type="text/javascript">
+function to_delete(id)
+{
+	var q = confirm("确定要删除当前菜单信息吗？删除后是不能恢复的\n\n\t存在子菜单时删除操作失败");
+	if(q != "0")
+	{
+		tourl("admin.php?file=sysmenu&act=delete&id="+id);
+	}
+}
+</script>
+<!-- inc:foot -->

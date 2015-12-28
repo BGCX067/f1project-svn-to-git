@@ -1,0 +1,27 @@
+<!-- inc:head -->
+<div class="notice">如果您的客户端未安装XuploadFiles控件，<a href="upfiles/xuploadfiles.cab">请点击这里下载</a>，该控件仅支持IE浏览器！</div>
+
+<object id="uploadid" height="0" width="0" classid="clsid:18B9E4BF-F21F-46B9-AD50-5CA62145426A" codebase="upfiles/xuploadfiles.cab">
+<param name="Action" value="admin.php?file=attachments&act=upfilesok">
+<param name="MinFileSize" value="1">
+<param name="MaxFileSize" value="{:$system[maxsize]}000">
+<param name="MaxFileCount" value="10000">
+<param name="MaxTotalSize" value="{:$system[maxsize]}0000000">
+<param name="AllowExt" value="{run:echo $system[filestype] ? str_replace(',',';',$system[filestype]):'jpg;gif;png;zip;rar'}">
+<param name="DenyExt" value="asp;aspx;php;jsp;js;asa;tmp">
+</object>
+<div class="table">
+	<input type="button" value="选择上传文件" onClick="filelist.value=uploadid.selectfiles();">
+	<input type="button" value="上 传" onClick="uploadid.uploadfile();filelist.value='';tourl();">
+</div>
+<div class="table">
+	<textarea name="filelist" readonly style="width:100%;height:300px;"></textarea>
+</div>
+<script type="text/javascript">
+function tourl()
+{
+	alert("上传成功");
+	return true;
+}
+</script>
+<!-- inc:foot -->

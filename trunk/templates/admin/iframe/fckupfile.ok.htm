@@ -1,0 +1,28 @@
+<!-- inc:head -->
+<body style="overflow:hidden;">
+<div id="qg_inner_content" style="display:none;">{:$msg}</div>
+<script type="text/javascript">
+function qg_addmsg()
+{
+	var c = $("qg_inner_content").innerHTML;
+	var oEditor = window.parent.FCKeditorAPI.GetInstance("{:$input_name}");
+	if(oEditor.EditMode == window.parent.FCK_EDITMODE_WYSIWYG)
+	{
+		oEditor.InsertHtml(c);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+qg_addmsg();
+</script>
+<table cellpadding="0" cellspacing="0">
+<tr>
+	<td><input type='button' value='上传成功' onclick="tourl('admin.php?file=iframe&act=fckupfile&input_name={:$input_name}')"></td>
+	<td>&nbsp;请点击按钮返回添加新文件或图片</td>
+</tr>
+</table>
+</body>
+</html>

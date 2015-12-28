@@ -1,0 +1,147 @@
+<!-- inc:head -->
+<script type="text/javascript">
+function do_show(val)
+{
+	if(val == "text" || val == "picture" || val == "file" || val == "video")
+	{
+		$("c_one").style.display = "";
+		$("c_two").style.display = "none";
+		$("c_three").style.display = "none";
+	}
+	else if(val == "textarea" || val == "fckeditor")
+	{
+		$("c_one").style.display = "none";
+		$("c_two").style.display = "";
+		$("c_three").style.display = "none";
+	}
+	else if(val == "checkbox" || val == "radio" || val == "select")
+	{
+		$("c_one").style.display = "none";
+		$("c_two").style.display = "none";
+		$("c_three").style.display = "";
+	}
+	else
+	{
+		$("c_one").style.display = "none";
+		$("c_two").style.display = "none";
+		$("c_three").style.display = "none";
+	}
+}
+
+function chkadd()
+{
+	var name = $("name").value;
+	if(!name)
+	{
+		alert("名称不能为空");
+		$("name").focus();
+		return false;
+	}
+	var qgtype = $("qgtype").value;
+	if(!qgtype)
+	{
+		alert("请选择扩展框属性");
+		return false;
+	}
+	$("submit").disabled = true;
+}
+</script>
+
+<div class="notice">&nbsp;添加扩展功能，当前系统组：{:$rs[name]}</div>
+
+<form method="post" action="{:$r_url}&act=ext.addok" onsubmit="return chkadd();">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">名称：<span style="color:red;">*</span></div>
+	<div class="right"><input type="text" name="name" id="name"> <span class="clue_on">[如缩略图，软件语言等，请尽量使用中文或英文字母，尽量不要使用特殊符号，标点符号等]</span></div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">类型：<span style="color:red;">*</span></div>
+	<div class="right">
+		<table cellpadding="0" cellspacing="0">
+		<tr>
+			<td>
+				<select name="qgtype" id="qgtype" onchange="do_show(this.value)">
+					<option value="">请选择一个类型</option>
+					<option value="text">文本框</option>
+					<option value="textarea">文本区域</option>
+					<option value="fckeditor">可视化文本区域</option>
+					<option value="checkbox">复选框</option>
+					<option value="radio">单选框</option>
+					<option value="picture">图片框</option>
+					<option value="file">附件框</option>
+					<option value="video">视频框</option>
+					<option value="select">选择框</option>
+				</select>
+				<span class="clue_on">[请选择一个功能进行操作]</span>
+			</td>
+		</tr>
+		</table>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">默认值：</div>
+	<div class="right"><input type="text" name="qgvalue" id="qgvalue" class="long_input"> <span class="clue_on">[多个默认值请用英文逗号隔开]</span></div>
+	<div class="clear"></div>
+</div>
+
+<div id="c_one" style="display:none;">
+	<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+		<div class="left">宽度：</div>
+		<div class="right"><input type="text" name="one_width" id="one_width" class="short_input"> <span class="clue_on">[设置文本框的宽度，为空使用系统默认]</span></div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div id="c_two" style="display:none;">
+	<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+		<div class="left">宽度：</div>
+		<div class="right"><input type="text" name="two_width" id="two_width" class="short_input" value="680"> <span class="clue_on">[设置宽度，为空使用 680]</span></div>
+		<div class="clear"></div>
+	</div>
+	<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+		<div class="left">高度：</div>
+		<div class="right"><input type="text" name="two_height" id="two_height" class="short_input" value="350"> <span class="clue_on">[设置高度，为空使用350]</span></div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div id="c_three" style="display:none;">
+	<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+		<div class="left">选择值：</div>
+		<div class="right"><textarea name="three_option" id="three_option" class="long_input" style="height:150px;"></textarea></div>
+		<div class="clear"></div>
+	</div>
+	<div class="table">
+		<div class="left">&nbsp;</div>
+		<div class="right clue_on">[一行表示一个值]</div>
+		<div class="clear"></div>
+	</div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">是否必填：</div>
+	<div class="right">
+		<input type="radio" name="isneed" value="0" checked>否
+		<input type="radio" name="isneed" value="1">是
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">排序：</div>
+	<div class="right"><input type="text" name="taxis" id="taxis" class="short_input" value="255"> <span class="clue_on">[排序，值越小越往前靠]</span></div>
+	<div class="clear"></div>
+</div>
+
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" name="submit" id="submit" value="提交"></div>
+	<div class="clear"></div>
+</div>
+
+<!-- inc:foot -->

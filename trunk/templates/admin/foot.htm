@@ -1,0 +1,33 @@
+<!-- 页脚信息 -->
+<style type="text/css">
+.Bottom td
+{
+	font:normal 12px Tahoma,Arial;
+	text-align:center;
+	color:#000000;
+	line-height:150%;
+}
+.Bottom .phpok
+{
+	font-weight:bold;
+	color:darkred;
+}
+</style>
+<br /><br />
+<div class="Bottom">
+<!-- run:$debug_msg = Foot() -->
+<table width="100%">
+<tr>
+	<td><br /><img src="images/loading.gif" style="cursor:pointer;" align="absmiddle" onclick="subject_css(this)"> {:$debug_msg}</td>
+</tr>
+</table>
+</div>
+<script type="text/javascript">
+function killErrors()
+{
+	return true;
+}
+window.onerror = killErrors;
+</script>
+</body>
+</html>

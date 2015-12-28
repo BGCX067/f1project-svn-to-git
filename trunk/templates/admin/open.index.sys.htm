@@ -1,0 +1,22 @@
+<!-- inc:head -->
+<script type="text/javascript">
+function get_value()
+{
+	if(window.frames["main_frame"].ok())
+	{
+		window.close();
+		return true;
+	}
+}
+</script>
+</head>
+<body>
+<div id="my_body">
+<iframe src="{:$incfile}" name="main_frame" id="main_frame" width="100%" height="{:$iframe_height}px" frameborder="0" marginheight="0" marginwidth="0" border="0" noresize></iframe>
+<div align="right" style="padding-top:2px;padding-right:2px;">
+	<input type="button" value="确 定" onclick="get_value();" style="cursor:pointer;">
+	<input type="button" value="关闭窗口" onclick="window.close();" style="cursor:pointer;">
+</div>
+</div>
+</body>
+</html>

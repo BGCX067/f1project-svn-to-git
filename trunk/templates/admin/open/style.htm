@@ -1,0 +1,224 @@
+<!-- inc:head -->
+<style type="text/css">
+body
+{
+	overflow:hidden;
+}
+.color_div
+{
+	margin:2px;/*FireFox浏览器*/
+	*margin:3px;/*IE浏览器使用*/
+	width:12px;
+	height:12px;
+	border:1px #808080 solid;
+}
+</style>
+<script type="text/javascript">
+var sub_style = parent.$("{:$subject_input}");
+var style = parent.$("{:$inputname}");
+
+function ok()
+{
+	var style_msg = "";
+	var bold = $("bold").checked;
+	if(bold)
+	{
+		style_msg += "font-weight:bold;";
+	}
+	var italic = $("italic").checked;
+	if(italic)
+	{
+		style_msg += "font-style:italic;";
+	}
+	var underline = $("underline").checked;
+	if(underline)
+	{
+		style_msg += "text-decoration:underline;";
+	}
+	var fontcolor = $("fontcolor").value;
+	if(fontcolor)
+	{
+		style_msg += "color:"+fontcolor+";";
+	}
+	var bgcolor = $("bgcolor").value;
+	if(bgcolor)
+	{
+		style_msg += "background-color:"+bgcolor+";";
+	}
+	style.value = style_msg;
+	//------直接显示样式效果
+	style_subject = sub_style.style.cssText;
+	style_subject = style_subject.toLowerCase();//小写
+
+	//--------去除重复的样式
+	style_subject = style_subject.replace(/font-weight: bold;/g,"");
+
+	style_subject = style_subject.replace(/font-style: italic;/g,"");
+
+	style_subject = style_subject.replace(/text-decoration: underline;/g,"");
+
+	style_subject = style_subject.replace(/color: \w+;/g,"");
+
+	style_subject = style_subject.replace(/background-color: \w+;/g,"");
+
+	sub_style.style.cssText = style_subject + ";" + style_msg;
+	//-------------关闭
+	parent.Layer.over();
+}
+</script>
+<div id="popen_msg" style="display:none"></div>
+
+<div>
+<table cellpadding="0" cellspacing="0">
+<tr>
+	<td>样式：</td>
+	<td><input type="checkbox" name="bold" id="bold" value="bold"></td>
+	<td><img src="images/bold.gif" border="0"></td>
+	<td><input type="checkbox" name="italic" id="italic" value="italic"></td>
+	<td><img src="images/italic.gif" border="0" align="absmiddle"></td>
+	<td><input type="checkbox" name="underline" id="underline" value="underline"></td>
+	<td><img src="images/underline.gif" border="0" align="absmiddle"></td>
+</tr>
+</table>
+</div>
+
+<table>
+<tr>
+	<td>
+		<div class="table1">
+		<table cellpadding="0" cellspacing="0" class="table">
+		<tr>
+			<td colspan="3" class="table" onclick="select_color('')" onmouseover="fontcolor_over(this,'')" onmouseout="this.className='table'">
+				<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td><div style="margin-left:2px;*margin-left:3px;width:12px;height:12px;border:1px #808080 solid;background:#000;"><div></div></div></td>
+					<td style="cursor:default">&nbsp;自动</td>
+				</tr>
+				</table>
+			</td>
+			<td colspan="2" align="right">文字：</td>
+			<td colspan="3" class="table"><input type="text" readonly id="fontcolor" name="fontcolor" style="width:60px"></td>
+		</tr>
+		<tr>
+			<!-- $colorList AS $key=>$value -->
+			<td class="table" onclick="select_color('#{:$value}')" onmouseover="fontcolor_over(this,'#{:$value}')" onmouseout="this.className='table'"><div class="color_div" style="background:#{:$value};"><div></div></div></td>
+			<!-- row:8 -->
+			<!-- end -->
+		</tr>
+		</table>
+		</div>
+	</td>
+	<td>
+		<div class="table1">
+		<table cellpadding="0" cellspacing="0" class="table">
+		<tr>
+			<td colspan="3" class="table" onclick="select_bg('')" onmouseover="bgcolor_over(this,'')" onmouseout="this.className='table'">
+				<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td><div style="margin-left:2px;*margin-left:3px;width:12px;height:12px;border:1px #808080 solid;background:#000;"><div></div></div></td>
+					<td style="cursor:default">&nbsp;自动</td>
+				</tr>
+				</table>
+			</td>
+			<td colspan="2" align="right">背景：</td>
+			<td colspan="3" class="table"><input type="text" readonly id="bgcolor" name="bgcolor" style="width:60px"></td>
+		</tr>
+		<tr>
+			<!-- $colorList AS $key=>$value -->
+			<td class="table" onclick="select_bg('#{:$value}')" onmouseover="bgcolor_over(this,'#{:$value}')" onmouseout="this.className='table'"><div class="color_div" style="background:#{:$value};"><div></div></div></td>
+			<!-- row:8 -->
+			<!-- end -->
+		</tr>
+		</table>
+		</div>
+	</td>
+</tr>
+</table>
+
+<script type="text/javascript">
+function select_color(val)
+{
+	if(val && val != "undefined")
+	{
+		$("fontcolor").value = val;
+		$("fontcolor").style.backgroundColor = val;
+	}
+	else
+	{
+		$("fontcolor").value = "";
+		$("fontcolor").style.backgroundColor = "";
+	}
+}
+
+function fontcolor_over(m,val)
+{
+	m.className = "table1";
+	$("fontcolor").style.backgroundColor = val;
+}
+
+function bgcolor_over(m,val)
+{
+	m.className = "table1";
+	$("bgcolor").style.backgroundColor = val;
+}
+
+function select_bg(val)
+{
+	if(val && val != "undefined")
+	{
+		$("bgcolor").value = val;
+		$("bgcolor").style.backgroundColor = val;
+	}
+	else
+	{
+		$("bgcolor").value = "";
+		$("bgcolor").style.backgroundColor = "";
+	}
+}
+
+//--------------
+
+function chkIfUse(styleText)
+{
+	if(!styleText || styleText == "undefined")
+	{
+		return false;
+	}
+	var array = new Array();
+	array = styleText.split(";");
+	var length = array.length;
+	for(i=0;i<length;i++)
+	{
+		if(array[i])
+		{
+			if(array[i].toLowerCase() == "font-weight:bold")
+			{
+				$("bold").checked = true;
+			}
+			if(array[i].toLowerCase() == "font-style:italic")
+			{
+				$("italic").checked = true;
+			}
+			if(array[i].toLowerCase() == "text-decoration:underline")
+			{
+				$("underline").checked = true;
+			}
+			//-----------
+			var t_array = new Array;
+			t_array = array[i].split(":");
+			if(t_array[0].toLowerCase() == "color")
+			{
+				$("fontcolor").value = t_array[1] ? t_array[1] : "";
+			}
+			if(t_array[0].toLowerCase() == "background-color")
+			{
+				$("bgcolor").value = t_array[1] ? t_array[1] : "";
+			}
+		}
+	}
+}
+chkIfUse(parent.$("{:$inputname}").value);
+</script>
+
+</body>
+</html>

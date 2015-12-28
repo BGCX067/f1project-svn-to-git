@@ -1,0 +1,6 @@
+<select onchange="change_cateid(this.value)">
+<option value="0">设为根分类</option>
+<!-- $catelist AS $key=>$value -->
+<option value="{:$value[id]}">{:$value[space]}{:$value[catename]}</option>
+<!-- end -->
+</select>

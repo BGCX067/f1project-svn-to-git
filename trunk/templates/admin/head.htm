@@ -1,0 +1,26 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 transitional//en" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<Meta http-equiv="Expires" Content="Wed, 26 Feb 1997 08:21:57 GMT">
+<Meta http-equiv="Pragma" Content="No-cach">
+<title>后台管理系统</title>
+<link rel="stylesheet" type="text/css" href="images/admin.css" />
+<script type="text/javascript" src="images/admin.js"></script>
+<link rel="stylesheet" type="text/css" media="all" href="include/calendar/calendar-theme.css" />
+<script type="text/javascript" src="include/calendar/calendar.js"></script>
+<script type="text/javascript" src="include/calendar/calendar-lang-zh.js"></script>
+<script type="text/javascript" src="include/calendar/calendar-setup.js"></script>
+<script type="text/javascript">
+function ShowDate(v)
+{
+	Calendar.setup({
+		inputField     :    v,   // id of the input field
+		ifFormat       :    "%Y-%m-%d %H:%M:%S",       // format of the input field
+		showsTime      :    true,
+		timeFormat     :    "24"
+	});
+}
+</script>
+</head>
+<body>

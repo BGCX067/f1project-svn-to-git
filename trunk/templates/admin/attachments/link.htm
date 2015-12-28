@@ -1,0 +1,55 @@
+<!-- inc:head -->
+<div class="notice">请注意，添加的链接仅支持系统允许的格式，站内文件地址请放在upfiles目录下</div>
+
+<form method="post" action="admin.php?file=attachments&act=linkok" onsubmit="return add_msg();">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">名称：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="tmpname" id="tmpname">
+		<span class="clue_on">[请填写附件的名称，支持中文，不超过50个汉字]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">地址：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="fold_file" id="fold_file" class="long_input">
+		<span class="clue_on">[网站upfiles目录下的文件或带http://完全网址]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">发布时间：</div>
+	<div class="right">
+		<input type="text" name="postdate" id="postdate" onclick="ShowCalendar('postdate')">
+		<span class="clue_on">[设置时间，为空使用系统时间]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" id="creat_button" class="mybutton_01" value="添加一个新链接"> &nbsp; <span id="show_step" style="color:red;"></span></div>
+</tr>
+</form>
+</table>
+</div>
+<script type="text/javascript">
+function add_msg()
+{
+	var tmpname = $("tmpname").value;
+	var foldfile = $("fold_file").value;
+	if(!foldfile || !tmpname)
+	{
+		alert("名称和文件都不允许为空");
+		return false;
+	}
+
+	$("show_step").innerHTML = "<img src='images/loading.gif' border='0' align='absmiddle'> 正在保存数据，如果网页没有动静请刷新...";
+
+	$("creat_button").disabled = true;
+}
+</script>
+<!-- inc:foot -->

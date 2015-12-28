@@ -1,0 +1,68 @@
+<!-- inc:head -->
+<!-- 添加导航栏 -->
+<div class="notice" style="text-align:left;">
+	<a href="admin.php?file=index">系统首页</a>
+	&raquo; <a href="admin.php?file=nav&act=list">导航栏管理</a>
+	&raquo; 编辑
+	<input type="button" value="返回列表" onclick="tourl('admin.php?file=nav&act=list')">
+</div>
+
+<form method="post" action="admin.php?file=nav&act=modifyok&id={:$id}" onsubmit="return chkadd();">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">名称：</div>
+	<div class="right"><input type="text" name="subject" id="subject" value="{:$rs[name]}"></div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">样式：</div>
+	<div class="right">
+		<input type="text" name="style" class="long_input" value="{:$rs[css]}">
+		<span style="clue_on"> [不熟悉请留空]</span>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">链接：</div>
+	<div class="right"><input type="text" name="link" id="link" value="{:$rs[url]}" class="long_input"></div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+<table width="100%">
+<tr>
+	<td class="left">打开方式：</td>
+	<td class="right">
+		<input type="radio" name="target" value="0"{if(!$rs[target])} checked{end}>原窗口
+		<input type="radio" name="target" value="1"{if($rs[target])} checked{end}>新窗口
+	</td>
+</tr>
+</table>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">排序：</div>
+	<div class="right"><input type="text" name="taxis" id="taxis" value="{:$rs[taxis]}" class="short_input"><span style="clue_on"> [数值越小越往前靠，最大不超过255]</span></div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" id="creat_button" class="mybutton_01" value="编辑"></div>
+	<div style="clear:both;"></div>
+</div>
+</form>
+<script type="text/javascript">
+function chkadd()
+{
+	var subject = $("subject").value;
+	if(!subject)
+	{
+		alert("名称不允为空...");
+		return false;
+	}
+	$("creat_button").disabled = true;
+}
+</script>
+<!-- inc:foot -->

@@ -1,0 +1,102 @@
+<!-- inc:head -->
+<div class="notice">
+&raquo; 管理系统组
+</div>
+
+<table width='100%' cellpadding='0' cellspacing='0'>
+<tr>
+	<td width='8%' class="t_sub">ID</td>
+	<td class="t_sub">系统组名称</td>
+	<td width="17%" class="t_sub">标识符</td>
+	<td width="50%" class="t_sub">操作</td>
+</tr>
+<!-- $rslist AS $key=>$value -->
+<tr class="tr_out" onMouseOver="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td height='28px' align='center' class="tc_left">{:$value[id]}</td>
+	<td align='left' class="tc_right">
+		&nbsp;{:$value[name]}
+		<!-- if(!$value[status]) -->
+		<span style="color:red;">(被禁用)</span>
+		<!-- end -->
+	</td>
+	<td align='center' class="tc_right">{:$value[sign]}</td>
+	<td align='center' class="tc_right">
+		<input type="button" value="编辑" onclick="to_modify({:$value[id]})">
+		<input type="button" value="管理扩展组" onclick="to_ext({:$value[id]})">
+		<input type="button" value="删除" onclick="to_delete({:$value[id]});">
+	</td>
+</tr>
+<!-- end -->
+</table>
+
+<script type="text/javascript">
+function to_modify(id)
+{
+	tourl("admin.php?file=sysgroup&act=list&id="+id);
+}
+function to_delete(id)
+{
+	var question = confirm("确认删除该系统组吗？\n\n\t特别说明，删除后相关信息均无法恢复！\n\n\t如非必要，您可以选择禁用");
+	if (question != "0")
+	{
+		tourl("admin.php?file=sysgroup&act=delete&id="+id);
+	}
+}
+function to_ext(id)
+{
+	tourl("admin.php?file=sysgroup&act=extlist&id="+id);
+}
+</script>
+
+<div style="height:3px;"><div></div></div>
+<!-- if($id) -->
+<div class="notice">
+&raquo; 编辑系统组，您可以在这里设置系统组的名称、标识等
+</div>
+
+<div style="display:none;">
+<form method="post" action="admin.php?file=sysgroup&act=setok&id={:$id}" onsubmit="return chkadd();">
+</div>
+<div class="table">
+系统组名称：<input type="text" name="groupname" id="groupname" value="{:$rs[name]}">
+标识符：<input type="text" name="sign" id="sign" value="{:$rs[sign]}">
+状态：<input type="radio" name="status" value="0"{if(!$rs[status])} checked{end}>禁用
+<input type="radio" name="status" value="1"{if($rs[status])} checked{end}>使用
+<input type="submit" name="submit" value="提交">
+</div>
+</form>
+<!-- else -->
+<div class="notice">
+&raquo; 添加系统组，您可以在这里设置系统组的名称、标识等
+</div>
+
+<div style="display:none;"><form method="post" action="admin.php?file=sysgroup&act=setok" onsubmit="return chkadd();"></div>
+<div class="table">
+系统组名称：<input type="text" name="groupname" id="groupname">
+标识符：<input type="text" name="sign" id="sign">
+状态：<input type="radio" name="status" value="0">禁用
+<input type="radio" name="status" value="1" checked>使用
+<input type="submit" name="submit" value="提交">
+</div>
+</form>
+<!-- end -->
+
+<script type="text/javascript">
+function chkadd()
+{
+	var groupname = $("groupname").value;
+	if(!groupname)
+	{
+		alert("名称不允许为空");
+		return false;
+	}
+	var sign = $("sign").value;
+	if(!sign)
+	{
+		alert("标识符不允许为空");
+		return false;
+	}
+}
+</script>
+
+<!-- inc:foot -->

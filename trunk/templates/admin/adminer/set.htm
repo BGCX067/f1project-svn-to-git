@@ -1,0 +1,144 @@
+<!-- inc:head -->
+<div class="notice">添加/编辑管理员信息，注意权限的相关设置及相应左侧菜单的配置，当前页面没有严格判断</div>
+
+<div style="display:none;"><form method="post" action="index.php?file=adminer&act=setok&id={:$id}"></div>
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">管理员名称：</div>
+	<div class="right"><input type="text" name="username" id="username" value="{:$rs[username]}"></div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">管理员密码：</div>
+	<div class="right"><input type="text" name="userpass" id="userpass" value="{:$rs[userpass]}"> <span class="clue_on">不修改密码，请保留原值不变</span></div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">管理员类型</div>
+	<div class="right">
+		<table cellpadding="1" cellspacing="0">
+		<tr>
+			<td><input type="radio" name="ifsystem" value="1" onclick="change_ifsystem(1)"{if($rs[ifsystem])} checked{end}></td>
+			<td>系统管理员</td>
+			<td><input type="radio" name="ifsystem" value="0" onclick="change_ifsystem(0)"{if(!$rs[ifsystem])} checked{end}></td>
+			<td>普通管理员</td>
+		</tr>
+		</table>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div id="city_popedom" style="display:none;">
+
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">城市分配：</div>
+	<div class="right">
+		<table cellpadding="1" cellspacing="0">
+		<tr>
+			<!-- $city_list AS $key=>$value -->
+			<td><input type="checkbox" name="cityid[]" value="{:$value[c_city_id]}"{if($rs[cityid] && strpos(",".$rs[cityid].",",",".$value[c_city_id].",") !== false)} checked{end}></td>
+			<td>{:$value[name]}</td>
+			<!-- row:5 -->
+			<!-- end -->
+		</tr>
+		</table>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">权限分配：</div>
+	<div class="right">点击名称可以进行全选操作</div>
+	<div style="clear:both;"></div>
+</div>
+
+<!-- $toplist AS $key=>$value -->
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">&nbsp;</div>
+	<div class="right">
+		<table cellpadding="1" cellspacing="0">
+		<tr>
+			<td width="120px"><a href="#" onclick="select_anti('qs_table_{:$key}')">{:$value[name]}</a></td>
+			<td id="qs_table_{:$key}">
+				<table cellpadding="0" cellspacing="0">
+				<tr>
+					<!-- $popedom_list AS $k=>$v -->
+					<!-- run:$tmp = str_replace(strstr($v[action],","),"",$v[action]) -->
+					<!-- run:$tmp = str_replace(".","_",$tmp) -->
+					<!-- if($value[filename][$v[filename]]) -->
+					<!-- run:$m[$key] = $m[$key] ? $m[$key] : 0 -->
+					<td><input type="checkbox" name="popedom[]" value="{:$v[filename]}:{:$v[action]}"{if($rs[popedom][$v[filename]][$tmp])} checked{end}></td>
+					<td>{:$v[name]}</td>
+					<!-- run:$m[$key]++ -->
+					<!-- if($m[$key]%3=="") --></tr><tr><!-- end -->
+					<!-- end -->
+					<!-- end -->
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+<!-- end -->
+
+</div>
+
+<!-- $toplist AS $key=>$value -->
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<!-- if($key == 0) -->
+	<div class="left">管理员常用菜单：</div>
+	<!-- else -->
+	<div class="left">&nbsp;</div>
+	<!-- end -->
+	<div class="right">
+		<table cellpadding="1" cellspacing="0">
+		<tr>
+			<td width="120px"><a href="#" onclick="select_anti('mu_table_{:$key}')">{:$value[name]}</a></td>
+			<td id="mu_table_{:$key}">
+				<table cellpadding="1" cellspacing="0">
+				<tr>
+					<!-- $menu_list AS $k=>$v -->
+					<!-- if($v[rootid] == $value[id]) -->
+					<!-- run:$n[$key] = $n[$key] ? $n[$key] : 0 -->
+					<td><input type="checkbox" name="menuid[]" value="{:$v[id]}"{if($rs[menuid] && strpos(",".$rs[menuid].",",",".$v[id].",") !== false)} checked{end}></td>
+					<td>{:$v[name]}</td>
+					<!-- run:$n[$key]++ -->
+					<!-- if($n[$key]%3 == "") --></tr><tr><!-- end -->
+					<!-- end -->
+					<!-- end -->
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+<!-- end -->
+
+<div class="table">
+	<div class="left"></div>
+	<div class="right"><input type="submit" value="设 置" /></div>
+	<div style="clear:both;"></div>
+</div>
+</form>
+
+<script type="text/javascript">
+function change_ifsystem(v)
+{
+	if(v == 1)
+	{
+		$("city_popedom").style.display = "none";
+	}
+	else
+	{
+		$("city_popedom").style.display = "";
+	}
+}
+change_ifsystem({:intval($rs[ifsystem])});
+</script>
+<!-- inc:foot -->

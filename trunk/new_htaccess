@@ -1,0 +1,32 @@
+# 将 RewriteEngine 模式打开
+RewriteEngine On
+
+# 修改以下语句中的 /phpok 为你的程序目录地址，如果程序放在根目录中，请将 /phpok 修改为 /
+RewriteBase /
+
+# Rewrite 新旧版都通用的规则
+RewriteRule ^index\.html$										index.php
+RewriteRule ^home.html$											home.php
+
+# Rewrite 旧版规则，请不要删除，以保证曾经收录的链接能正常访问
+RewriteRule ^list-([0-9]+)-([0-9]+)\.html$						list.php?id=$1&pageid=$2
+RewriteRule ^msg-([0-9]+)\.html$								msg.php?id=$1
+RewriteRule ^msg-([0-9]+)-([0-9]+)\.html$						msg.php?id=$1&pageid=$2
+RewriteRule ^special-([0-9]+)\.html$							special.php?id=$1
+RewriteRule ^special-([0-9]+)-([0-9]+)\.html$					special.php?id=$1&pageid=$2
+RewriteRule ^book-(add|list)-([0-9]+)\.html$					book.php?act=$1&pageid=$2
+RewriteRule ^book-(add|list)-([0-9]+)-id([0-9]+)\.html$			book.php?act=$1&pageid=$2&id=$3
+
+
+# Rewrite 新版规则--------这是一个高度接近HTML页的的网址
+RewriteRule ^html\/list\/([0-9]+)\/index\.html$					list.php?id=$1&pageid=1
+RewriteRule ^html\/list\/([0-9]+)\/([0-9]+)\.html$				list.php?id=$1&pageid=$2
+RewriteRule ^html\/([0-9]+)\/([0-9]+)\.html$					msg.php?id=$2
+RewriteRule ^html\/([0-9]+)\/([0-9]+)\/([0-9]+)\.html$			msg.php?id=$3
+RewriteRule ^html\/special\/([0-9]+)\.html$						special.php?id=$1
+RewriteRule ^html\/book\/add\.html$								book.php?act=add
+RewriteRule ^html\/book\/addok\.html$							book.php?act=addok
+RewriteRule ^html\/book\/index\.html$							book.php?act=list
+RewriteRule ^html\/book\/index-id([0-9]+)\.html$				book.php?act=list&id=$1
+RewriteRule ^html\/book\/([0-9]+)\.html$						book.php?act=list&pageid=$1
+RewriteRule ^html\/book\/([0-9]+)-id([0-9]+)\.html$				book.php?act=list&pageid=$1&id=$2

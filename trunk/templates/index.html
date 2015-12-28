@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="templates/yui/images/main.css" type="text/css" />
+
+<script src="templates/yui/images/index.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="head">
+<div class="logo"><img src="templates/yui/images/toplogo.jpg" border="0"></div>
+<div class="qkindex">
+	<span style="cursor:pointer;" onclick="sethome(this,'http://www.phpok.com')">设为首页</span> |
+	<span style="cursor:pointer;" onclick="setfav('http://www.phpok.com','PHPOK企业站')">加入收藏</span> |
+	<a href="book.php">在线留言</a>&nbsp; &nbsp;
+</div>
+
+<div>
+<div class="nav_main"><!-- 导航主菜单 -->
+        <ul>
+            <li><span class="nav_current" id="nav1" onmouseover="javascript:doClick(this)"><a href="/">首 页</a></span> </li>
+            <li><span class="nav_link" id="nav2" onmouseover="javascript:doClick(this)"><a href="/Webmaster/Index.html">站长在线</a></span> </li>
+            <li><span class="nav_link" id="nav3" onmouseover="javascript:doClick(this)"><a href="/Webbiz/Index.html">网站运营</a></span> </li>
+            <li><span class="nav_link" id="nav4" onmouseover="javascript:doClick(this)"><a href="/Union/Index.html">联盟资讯</a></span> </li>
+            <li><span class="nav_link" id="nav5" onmouseover="javascript:doClick(this)"><a href="/News/Index.html">新闻资讯</a></span> </li>
+            <li><span class="nav_link" id="nav6" onmouseover="javascript:doClick(this)"><a href="/Design/Index.html">设计在线</a></span> </li>
+            <li><span class="nav_link" id="nav7" onmouseover="javascript:doClick(this)"><a href="/Program/Index.html">网络编程</a></span> </li>
+            <li><span class="nav_link" id="nav8" onmouseover="javascript:doClick(this)"><a href="/Server/Index.html">服 务 器</a></span> </li>
+        </ul>
+</div>
+	<div class="sub_box_de" id="sub1"><!-- 导航滑动二级菜单 -->
+		<ul>
+			<li><strong>滑动二级默认显示：</strong>指定首页时显示内容，也是默认显示的导航内容</li>
+		</ul>
+	</div>
+	<div class="sub_box" id="sub2">
+		<ul>
+			<li><a href="/Webmaster/RecSite/Index.html">好站推荐</a>　| </li>
+            <li><a href="/Webmaster/Gather/Index.html">站长聚会</a>　| </li>
+            <li><a href="/Webmaster/Visit/Index.html">站长访谈</a>　| </li>
+            <li><a href="/Webmaster/Club/Index.html">站长茶馆</a>　| </li>
+            <li><a href="/Webmaster/Topsite/Index.html">网站排行</a> </li>
+        </ul>
+	</div>
+	<div class="sub_box" id="sub3">
+        <ul>
+            <li><a href="/Webbiz/Exp/Index.html">建站经验</a>　| </li>
+            <li><a href="/Webbiz/BizPlan/Index.html">策划盈利</a>　| </li>
+            <li><a href="/Webbiz/Seo/Index.html">搜索优化</a>　| </li>
+            <li><a href="/Webbiz/Promot/Index.html">网站推广</a>　| </li>
+            <li><a href="/Webbiz/Free/Index.html">免费资源</a> </li>
+        </ul>
+	</div>
+	<div class="sub_box" id="sub4">
+        <ul>
+            <li><a href="/Union/News/Index.html">联盟新闻</a>　| </li>
+            <li><a href="/Union/Intro/Index.html">联盟介绍</a>　| </li>
+            <li><a href="/Union/Comment/Index.html">联盟点评</a>　| </li>
+            <li><a href="/Union/Skill/Index.html">网赚技巧</a> </li>
+        </ul>
+	</div>
+	<div class="sub_box" id="sub5">
+        <ul>
+            <li><a href="/News/It/Index.html">业界动态</a>　| </li>
+            <li><a href="/News/Invest/Index.html">收购融资</a>　| </li>
+            <li><a href="/News/Portals/Index.html">门户动态</a>　| </li>
+            <li><a href="/News/Search/Index.html">搜索引擎</a>　| </li>
+            <li><a href="/News/Game/Index.html">网络游戏</a>　| </li>
+            <li><a href="/News/Biz/Index.html">电子商务</a>　| </li>
+            <li><a href="/News/Media/Index.html">广告传媒</a>　| </li>
+            <li><a href="/News/Soft/Index.html">厂商开发</a> </li>
+        </ul>
+	</div>
+	<div class="sub_box" id="sub6">
+        <ul>
+            <li><a href="/Design/Coolsite/Index.html">酷站推荐</a>　| </li>
+            <li><a href="/Design/Pages/Index.html">网页设计</a>　| </li>
+            <li><a href="/Design/Rules/Index.html">WEB标准</a>　| </li>
+            <li><a href="/Design/Video/Index.html">视频处理</a>　| </li>
+            <li><a href="/Design/Activity/Index.html">设计活动</a> </li>
+        </ul>
+	</div>
+	<div class="sub_box" id="sub7">
+        <ul>
+            <li><a href="/Program/Asp/Index.html">Asp编程</a>　| </li>
+            <li><a href="/Program/Php/Index.html">Php编程</a>　| </li>
+            <li><a href="/Program/.Net/Index.html">.Net编程</a>　| </li>
+            <li><a href="/Program/Xml/Index.html">Xml编程</a>　| </li>
+            <li><a href="/Program/Access/Index.html">Access</a>　| </li>
+            <li><a href="/Program/Mssql/Index.html">Mssql</a>　| </li>
+            <li><a href="/Program/Mysql/Index.html">Mysql</a> </li>
+        </ul>
+	</div>
+	<div class="sub_box" id="sub8">
+        <ul>
+            <li><a href="/Server/Web/Index.html">Web服务器</a>　| </li>
+            <li><a href="/Server/Ftp/Index.html">Ftp服务器</a>　| </li>
+            <li><a href="/Server/Mail/Index.html">Mail服务器</a>　| </li>
+            <li><a href="/Server/Dns/Index.html">Dns服务器</a>　| </li>
+            <li><a href="/Server/Win/Index.html">Win服务器</a>　| </li>
+            <li><a href="/Server/Linux/Index.html">Linux服务器</a>　| </li>
+            <li><a href="/Server/Safe/Index.html">安全防护</a> </li>
+        </ul>
+	</div><!-- 滑动菜单结束 -->
+</div>
+</div>
+	
+
+</body>
+</html>

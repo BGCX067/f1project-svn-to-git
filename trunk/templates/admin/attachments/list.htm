@@ -1,0 +1,180 @@
+<!-- inc:head -->
+<script type="text/javascript">
+function qg_delete(id)
+{
+	if(!id || id == "0")
+	{
+		alert("ID号不允许为空！");
+		return false;
+	}
+	question = confirm("确认删除该附件吗？特别说明，删除后无法恢复！");
+	if (question != "0")
+	{
+		window.location.href="admin.php?file=attachments&act=delete&id="+id;
+	}
+	return true;
+}
+function upfile_viewpic(id)
+{
+	var url = "admin.php?file=open&act=viewpic&id="+id;
+	Layer.init(url,500,500);
+}
+function to_pl(type,id)
+{
+	var idarray = new Array;
+	if(id && id != "undefined")
+	{
+		var cv = $(id).getElementsByTagName("input");
+	}
+	else
+	{
+		var cv = document.getElementsByTagName("input");
+	}
+	var m = 0;
+	for(var i=0; i<cv.length; i++)
+	{
+		if(cv[i].type.toLowerCase() == "checkbox")
+		{
+			if(cv[i].checked)
+			{
+				idarray[m] = cv[i].value;
+				m++;
+			}
+		}
+	}
+	var mid = idarray.join(",");
+	if(!mid || mid == "0")
+	{
+		alert("没有勾选要操作的主题！");
+		return false;
+	}
+	if(type == "delete")
+	{
+		var q = confirm("确定要批量操作吗？成功操作相关信息是不能恢复的");
+		if(q != "0")
+		{
+			tourl("admin.php?file=attachments&act=delete&id="+mid);
+		}
+	}
+	else if(type == "mark")
+	{
+		var q = confirm("确定批量更换水印吗？成功操作后原水印图片将会被替换");
+		if(q != "0")
+		{
+			tourl("admin.php?file=attachments&act=umark&id="+mid);
+		}
+	}
+	else if(type == "thumb")
+	{
+		var q = confirm("确定批量更换缩略图吗？成功操作后原缩略图将会被替换");
+		if(q != "0")
+		{
+			tourl("admin.php?file=attachments&act=uthumb&id="+mid);
+		}
+	}
+	else
+	{
+		alert("操作错误");
+		return false;
+	}
+}
+</script>
+<div id="ispicture">
+<table width="100%">
+<tr>
+	<!-- $piclist AS $key=>$value -->
+	<td align="center">
+		<table>
+		<tr>
+			<td><img src="{:$value[thumb]}" width="120px" height="120px" border="0" onclick="upfile_viewpic({:$value[id]});" style="cursor:pointer;"></td>
+		</tr>
+		<form method="post" action="admin.php?file=attachments&act=modifyok&id={:$value[id]}">
+		<tr>
+			<td><input type="text" name="tmpname" value="{:$value[tmpname]}" style="width:120px"></td>
+		</tr>
+		<tr>
+			<td>
+				<input type="checkbox" name="filelist[]" value="{:$value[id]}">
+				<input type="submit" value="更改" />
+				<input type="button" value="删除" onclick="qg_delete({:$value[id]})" style="cursor:pointer;" />
+			</td>
+		</tr>
+		</form>
+		</table>
+	</td>
+	<!-- row:5 -->
+	<!-- end -->
+</tr>
+</table>
+	<div class="table">
+		<input type="button" value="全选" onclick="select_all('ispicture')">
+		<input type="button" value="不选" onclick="select_none('ispicture')">
+		<input type="button" value="反选" onclick="select_anti('ispicture')">
+		<input type="button" value="批量删除" onclick="to_pl('delete','ispicture')">
+		<input type="button" value="更新水印" onclick="to_pl('mark','ispicture')">
+		<input type="button" value="更新缩略图" onclick="to_pl('thumb','ispicture')">
+	</div>
+</div>
+<!-- if($attlist && is_array($attlist)) -->
+<div id="isdownload">
+	<div class="notice" style="text-align:left;">可下载附件</div>
+	<!-- $attlist AS $key=>$value -->
+		<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+		<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="10px" height="25px">&nbsp;</td>
+			<form method="post" action="admin.php?file=attachments&act=modifyok&id={:$value[id]}">
+				<td align="left">
+					<input type="checkbox" name="filelist[]" value="{:$value[id]}">
+					<input type="text" name="tmpname" value="<!-- if($value[tmpname]) -->{:$value[tmpname]}<!-- else -->{:$value[filename]}<!-- end -->" style="width:200px;"> <input type="submit" value="更改" />
+				</td>
+			</form>
+			<td style="width:80px;text-align:right;" title="文件大小：{:$value[filesize]}">{:$value[filesize]}</td>
+			<td style="width:140px;text-align:center;" title="上传时间：{:$value[postdate]}">{:$value[postdate]}</td>
+			<td style="width:30px;text-align:center;"><a href="{:$value[folder]}{:$value[filename]}" target="_blank" title="下载附件"><img src="images/download.gif" border="0" title="下载附件"></a></td>
+			<td style="width:35px;text-align:center;"><input type="button" value="删除" onclick="qg_delete({:$value[id]})" title="删除该附件"></td>
+		</tr>
+		</table>
+		</div>
+	<!-- end -->
+	<div class="table">
+		<input type="button" value="全选" onclick="select_all('isdownload')">
+		<input type="button" value="不选" onclick="select_none('isdownload')">
+		<input type="button" value="反选" onclick="select_anti('isdownload')">
+		<input type="button" value="批量删除" onclick="to_pldel('isdownload')">
+	</div>
+</div>
+<!-- end -->
+
+<!-- if($extlist && is_array($extlist)) -->
+<div id="isother">
+	<div class="notice" style="text-align:left;">其他附件（外部链接或不存的附件）</div>
+	<!-- $extlist AS $key=>$value -->
+		<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+		<table width="100%" cellpadding="0" cellspacing="0">
+		<tr>
+			<td width="10px" height="25px">&nbsp;</td>
+			<td align="left">
+				<input type="checkbox" name="filelist[]" value="{:$value[id]}">
+				<input type="text" name="tmpname" value="<!-- if($value[tmpname]) -->{:$value[tmpname]}<!-- else -->{:$value[filename]}<!-- end -->" disabled>
+			</td>
+			<td align="left">{:$value[folder]}{:$value[filename]}</td>
+			<td style="width:140px;text-align:center;">{:$value[postdate]}</td>
+			<td style="width:35px;text-align:center;"><input type="button" value="删除" onclick="qg_delete({:$value[id]})" title="删除该附件"></td>
+		</tr>
+		</table>
+		</div>
+	<!-- end -->
+	<div class="table">
+		<input type="button" value="全选" onclick="select_all('isother')">
+		<input type="button" value="不选" onclick="select_none('isother')">
+		<input type="button" value="反选" onclick="select_anti('isother')">
+		<input type="button" value="批量删除" onclick="to_pldel('isother')">
+		<input type="button" value="更新水印" onclick="to_pldel('mark')">
+	</div>
+</div>
+<!-- end -->
+
+<div align="right" style="padding-right:2px;">{:$pagelist}</div>
+
+<!-- inc:foot -->

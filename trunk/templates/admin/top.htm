@@ -1,0 +1,147 @@
+<!doctype html public "-//w3c//dtd xhtml 1.0 transitional//en" "http://www.w3.org/tr/xhtml1/dtd/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<Meta http-equiv="Expires" Content="Wed, 26 Feb 1997 08:21:57 GMT">
+<Meta http-equiv="Pragma" Content="No-cach">
+<title>后台管理</title>
+<script type="text/javascript" src="images/admin.js"></script>
+<style type="text/css">
+body
+{
+	margin:0px;
+	padding:0px;
+	background:#124F62;
+}
+td
+{
+	font-size:12px;
+	color:#FFF;
+}
+a
+{
+	font-size:12px;
+	text-decoration:none;
+	color:#FFF;
+	blr:expression(this.onFocus=this.blur());
+}
+a:hover
+{
+	font-size:12px;
+	text-decoration:underline;
+}
+a:focus
+{
+	-moz-outline-style: none;
+}
+.logo-menu
+{
+	padding-top:3px;
+	border-bottom:1px #047A9E solid;
+	background:#0C5870;
+}
+.bottom-line
+{
+	height:5px;
+	border-bottom:1px #047A9E solid;
+}
+.menub
+{
+	border-left:1px #047A9E solid;
+	border-right:1px #047A9E solid;
+	border-top:1px #047A9E solid;
+	padding-left:5px;
+	padding-right:5px;
+}
+.menuh
+{
+	border-left:1px #047A9E solid;
+	border-right:1px #047A9E solid;
+	border-top:1px #047A9E solid;
+	padding-left:5px;
+	padding-right:5px;
+}
+.menuh a
+{
+	color:red;
+}
+.f_left
+{
+	float:left;
+}
+.f_right
+{
+	float:right;
+}
+</style>
+</head>
+<body>
+<div class="logo-menu">
+<table cellpadding="0" cellspacing="0">
+<tr>
+	<td><img src="images/title-logo.gif" border="0"></td>
+	<td>&nbsp; &nbsp; &#8251; 您好，{:$_SESSION[admin][user]}&nbsp;</td>
+
+	<!-- $menulist AS $key=>$value -->
+	<td width="3"></td>
+	<td class="menub" id="menu_{:$key}">&nbsp;<a href="{:$value[menu_url]}" target="frame_left" onclick="change_this({:$key})">{:$value[name]}</a>&nbsp;</td>
+	<!-- end -->
+
+	<td width="3"></td>
+	<td class="menub">&nbsp;<a href="index.php" target="_top">访问网站</a>&nbsp;</td>
+
+	<td width="3"></td>
+	<td class="menub">&nbsp;<span style="color:white;font-weight:bold;cursor:pointer;" onclick="to_clear()">清空缓存</span>&nbsp;</td>
+
+	<td width="3"></td>
+	<td class="menub">&nbsp;<a href="admin.php?act=logout" target="_top">退出</a>&nbsp;</td>
+</tr>
+</table>
+</div>
+<div class="bottom-line"><div></div></div>
+<script type="text/javascript">
+function to_clear()
+{
+	var q = confirm("确定要清空缓存吗？");
+	if(q != "0")
+	{
+		var msg = get_ajax("admin.php?file=cache&act=clear");
+		if(msg == "ok")
+		{
+			alert("缓存清空完毕");
+			return false;
+		}
+		else
+		{
+			alert("操作有错误，请联系管理员");
+			return false;
+		}
+	}
+}
+var menu_count = parseInt("{:$menulist ? count($menulist) : 0}");
+function change_this(keyId)
+{
+	if(menu_count<1)
+	{
+		return false;
+	}
+	var keyMenu = "menu_"+keyId;
+	for(var i=0;i<menu_count;i++)
+	{
+		var tmpMenu = "menu_"+i;
+		$(tmpMenu).className = i == keyId ? "menuh" : "menub";
+	}
+}
+if(menu_count>0)
+{
+	timeset(1,"load_change()");
+}
+function load_change()
+{
+	change_this(0);
+	window.parent.frames["frame_left"].location.href = "{:$menulist[0][menu_url]}";
+}
+</script>
+
+</body>
+</html>

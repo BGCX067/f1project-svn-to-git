@@ -1,0 +1,41 @@
+<!-- inc:head -->
+<!-- 分类列表 -->
+<div class="notice" style="text-align:left;">
+	<a href="admin.php?file=index">系统首页</a>
+	&raquo; <a href="admin.php?file=nav&act=list">导航栏管理</a>
+	<input type="button" value="添加导航" onclick="tourl('admin.php?file=nav&act=add')">
+</div>
+<script language="JavaScript">
+function delete_confirm(aaa)
+{
+	question = confirm("确认删除该链接吗？\n\n\t删除后无法恢复！");
+	if (question != "0")
+	{
+		window.location.href="admin.php?file=nav&act=delete&id="+aaa
+	}
+}
+function navmodify(id)
+{
+	window.location.href="admin.php?file=nav&act=modify&id="+id;
+}
+</script>
+<table width='100%' cellpadding='0' cellspacing='0'>
+<tr>
+	<td width='8%' class="t_sub">ID</td>
+	<td class="t_sub">名称</td>
+	<td width="7%" class="t_sub">排序</td>
+	<td width="17%" class="t_sub">操作</td>
+</tr>
+<!-- $rslist AS $key=>$value -->
+<tr class="tr_out" onMouseOver="this.className='tr_over'" onMouseOut="this.className='tr_out'">
+	<td height='28px' align='center' class="tc_left">{:$value[id]}</td>
+	<td align='left' class="tc_right">&nbsp;{:$value[name]}</td>
+	<td align='center' class="tc_right">{:$value[taxis]}</td>
+	<td align='center' class="tc_right">
+		<input type="button" value="编辑" onclick="navmodify({:$value[id]})">
+		<input type="button" value="删除" onclick="delete_confirm({:$value[id]});">
+	</td>
+</tr>
+<!-- end -->
+</table>
+<!-- inc:foot -->

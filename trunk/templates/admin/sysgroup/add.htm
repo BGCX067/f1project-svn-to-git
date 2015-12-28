@@ -1,0 +1,35 @@
+<!-- inc:head -->
+<div class="notice">&nbsp;添加系统组，您可以在这里设置系统组的名称、标识，前调要调用的默认模板名等</div>
+
+<form method="post" action="{:$r_url}&act=addok" onsubmit="return chkadd();">
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">系统组名称：<span style="color:red;">*</span></div>
+	<div class="right"><input type="text" name="groupname" id="groupname"> <span class="clue_on">[创建一个系统组名称，如文章、图片等]</span></div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">标识符：<span style="color:red;">*</span></div>
+	<div class="right"><input type="text" name="sign" id="sign"> <span class="clue_on">[填写一个标识符，注意标识符不能重复]</span></div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">自定义扩展</div>
+	<div class="right"><input type="text" class="long_input" name="user_ext"> <span class="clue_on">[多个自定义扩展名称用英文逗号隔开]</span></div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right clue_on">自定义扩展默认是字符串功能，您可以在管理里对每一个扩展进行设置</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">&nbsp;</div>
+	<div class="right"><input type="submit" name="submit" value="提交"></div>
+	<div class="clear"></div>
+</div>
+
+<!-- inc:foot -->

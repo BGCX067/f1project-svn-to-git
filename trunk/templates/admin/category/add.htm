@@ -1,0 +1,202 @@
+<!-- inc:head -->
+<div class="notice">
+&raquo; 添加新分类
+<input type="button" value="分类列表" onclick="tourl('admin.php?file=category&act=list')">
+</div>
+
+<div style="height:2px;"><div></div></div>
+<div class="none">
+<form method="post" action="admin.php?file=category&act=addok" onsubmit="return chk();">
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">分类名称：<span style="color:red;">*</span></div>
+	<div class="right">
+		<input type="text" name="catename" id="catename">
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">样式：</div>
+	<div class="right">
+		<input type="text" name="catestyle" id="catestyle" class="long_input">
+		<img src="images/style.gif" title="主题样式" style="cursor:pointer;" align="absmiddle" onclick="subject_css(this)">
+		<span class="clue_on">[不熟悉请留空]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">类型：</div>
+	<div class="right">
+		<select name="catetype" id="catetype" onchange="change_type(this.value)">
+		<option value="">请选择类别</option>
+		<!-- $catetype AS $key=>$value -->
+		<option value="{:$key}">{:$value}</option>
+		<!-- end -->
+		</select>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">上级分类：</div>
+	<div class="right">
+		<span id="parent_cate" name="parent_cate"><select>
+		<option value="">请先选择类别后再选择上级分类</option>
+		</select></span>
+		<span class="clue_on">[分类建议不要超过三级]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<input type="hidden" id="cateid" name="cateid" />
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">封面模板：</div>
+	<div class="right">
+		<input type="text" name="tpl_index" id="tpl_index">
+		<span class="clue_on" style="color:red;">[如果您要启用封面功能，请设置好封面模板]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">列表模板：</div>
+	<div class="right">
+		<input type="text" name="tpl_list" id="tpl_list">
+		<span class="clue_on">[在不使用封面模板情况下可为空，使用系统默认，也可以自定义]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">内容模板：</div>
+	<div class="right">
+		<input type="text" name="tpl_msg" id="tpl_msg">
+		<span class="clue_on">[为空使用系统默认，设定后如果内容里没有单独设置，则使用该设置]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">状态：</div>
+	<div class="right">
+		<input type="checkbox" name="ifcheck" id="ifcheck" checked> <span class="clue_on">[暂停该分类的使用，请将打勾去掉，反之请打上勾]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">排序：</div>
+	<div class="right">
+		<input type="text" name="taxis" id="taxis" class="short_input" value="255">
+		<span class="clue_on">[最越小越往前靠，不能超过255]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table" onmouseover="this.className='table table1'" onmouseout="this.className='table'">
+	<div class="left">每页显示数量：</div>
+	<div class="right">
+		<input type="text" name="psize" id="psize" class="short_input" value="30">
+		<span class="clue_on">[不能超过255]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">SEO 关键字：</div>
+	<div class="right">
+		<input class="long_input" name="keywords" id="keywords">
+		<span class="clue_on">[多个关键字用英文逗号隔开，不要超过100个汉字]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">SEO 描述：</div>
+	<div class="right">
+		<input class="long_input" name="description" id="description">
+		<span class="clue_on">[简要描述当前分类主要的功能，不要超过100个汉字]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+<div class="table">
+	<div class="left">描述：</div>
+	<div class="right">
+		<textarea class="long_input" name="note" id="note"></textarea>
+		<span class="clue_on">[不要超过100个汉字]</span>
+	</div>
+	<div class="clear"></div>
+</div>
+
+
+<br /><br />
+<div class="table">
+	<div class="left"></div>
+	<div class="right"><input type="submit" id="cate_submit" name="cate_submit" value="添加分类"></div>
+	<div class="clear"></div>
+</div>
+
+</form>
+
+<script type="text/javascript">
+function subject_css(v)
+{
+	var vLeft = getLeft(v);
+	var vTop = getTop(v);
+	Layer.init('admin.php?file=open&act=style&inputname=style&subject_input=catename',375,170,vLeft,vTop);
+}
+function chk()
+{
+	var catename = $("catename").value;
+	if(!catename)
+	{
+		alert("分类名称不能为空");
+		return false;
+	}
+	var catetype = $("catetype").value;
+	if(!catetype)
+	{
+		alert("请选择类型");
+		return false;
+	}
+	var cateid = $("cateid").value;
+	if(!cateid || cateid == "0")
+	{
+		var q = confirm("确定要设置为根分类吗？点“确定”继续，点“取消”返回修改");
+		if(q == "0")
+		{
+			return false;
+		}
+	}
+	$("cate_submit").disabled = true;
+}
+
+function change_type(val)
+{
+	var message = '<select><option value="">请先选择类别后再选择上级分类</option></select>';
+	if(val)
+	{
+		var url = "admin.php?file=category&act=ajax_getcate&type="+val;
+		var t_msg = get_ajax(url);
+		if(t_msg != "error")
+		{
+			message = t_msg;
+		}
+	}
+	$("parent_cate").innerHTML = message;
+}
+
+function change_cateid(val)
+{
+	$("cateid").value = val;
+}
+
+</script>
+
+
+<!-- inc:foot -->

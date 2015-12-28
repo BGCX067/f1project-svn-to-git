@@ -1,0 +1,278 @@
+/*这是后台右测的css特效*/
+*
+{
+	font:normal 12px "Tahoma","Arial","serif","sans-serif";
+}
+body
+{
+	font:normal 12px "Tahoma","Arial","serif","sans-serif";
+	margin:0px;
+	padding:3px;
+	overflow:none;
+}
+a
+{
+	border: 0px;
+	padding: 0px;
+	margin: 0px;
+}
+div
+{
+	line-height:20px;
+}
+a:link
+{
+	color: #000000;
+	text-decoration: none;
+}
+
+a:visited
+{
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: #ff0000;
+	text-decoration: underline;
+}
+table,tr,td
+{
+	font:normal 12px "Tahoma","Arial","serif","sans-serif";
+	word-wrap:break-word;
+	word-break:break-all;
+}
+textarea
+{
+	font:normal 12px "Tahoma","Arial","serif","sans-serif";
+	border-top:1px #E4E4E4 solid;
+	border-left:1px #E4E4E4 solid;
+	border-right:1px #DDD solid;
+	border-bottom:1px #DDD solid;
+}
+textarea.long_input
+{
+	width:400px;
+	height:120px;
+}
+input
+{
+	*padding-top:2px;/*IE7*/
+	_padding-top:0px;/*IE6*/
+	border:1px;
+}
+/*针对Type为Text和Password的设置*/
+[type="text"],[type="password"],[type="file"]
+{
+	border:1px solid;
+	border-color:#ddd #666 #666 #ddd;
+}
+[type="button"],[type="submit"]
+{
+	padding:1px;
+	border:1px solid;
+	border-color:#ddd #666 #666 #ddd;
+	background:#DDD;
+}
+input.button
+{
+	/*padding: 2px 8px 0px;
+	margin: 2px 2px;
+	border: 1px solid #2D5082;
+	background: url("buttonbg.gif") repeat-x;*/
+	margin:3px 0;
+	padding:1px;
+	border:1px solid;
+	border-color:#ddd #666 #666 #ddd;
+	background:#DDD;
+	cursor:pointer;
+}
+input.short_input
+{
+	width:70px;
+	vertical-align: middle;
+}
+input.long_input
+{
+	width:400px;
+	vertical-align: middle;
+}
+input.css_input
+{
+	width:400px;
+	height:20px;
+	vertical-align: middle;
+	border-top:1px #E4E4E4 solid;
+	border-left:1px #E4E4E4 solid;
+	border-right:1px #DDD solid;
+	border-bottom:1px #DDD solid;
+}
+.Top
+{
+    position:relative;
+    width:100%;
+    height:25px;
+    background:#FFFFE1;
+    border-top:1px #7F9DB9 solid;
+    border-bottom:1px #716F64 solid;
+	line-height:120%;
+}
+.root
+{
+    position:relative;
+	height:27px;
+	line-height:27px;
+	padding-left:12px;
+}
+
+/***注意事项样式********/
+.html_notice
+{
+	line-height:150%;
+}
+.html_notice li
+{
+	color:#7D0000;
+	list-style-type:square;
+	padding-left:15px;
+}
+
+
+/*用于新风格的样式设置*/
+.table
+{
+	border:1px #FFF solid;
+	background:#FFF;
+}
+
+.table1
+{
+	border:1px #0C5870 solid;
+	background:#DEFFFF;
+}
+
+.table .left
+{
+	float:left;
+	width:145px;
+	*width:150px;
+	text-align:left;
+	padding:1px;
+	padding-left:5px;
+}
+
+.table .right
+{
+	float:left;
+	text-align:left;
+	padding:1px;
+}
+.clear
+{
+	clear:both;
+}
+.none
+{
+	display:none;
+}
+/*灰色文字，用于提示信息*/
+.clue_on
+{
+	color:#737373;
+	font:normal 11px "Tahoma","Arial","sans-serif";
+}
+
+/*通知及导航条样式*/
+.notice
+{
+	border:1px #0C5870 solid;
+	background:#DEFFFF;
+	padding-left:5px;
+	padding-right:2px;
+	padding-top:2px;
+	padding-bottom:2px;
+	color:darkred;
+}
+
+/*Button的宽度*/
+.button_2
+{
+	width:35px;
+}
+.button_3
+{
+	width:45px;
+}
+
+/*分页样式*/
+.pagelist
+{
+	margin:3px;
+	padding:3px;
+	border:0px;
+}
+.pagelist .n
+{
+	border:1px #D2DFE6 solid;
+	padding-left:5px;
+	padding-right:5px;
+	*padding-top:3px;
+	*padding-bottom:3px;
+	background:#FFFFFF;
+}
+.pagelist .m
+{
+	border:1px #D2DFE6 solid;
+	padding-left:5px;
+	padding-right:5px;
+	background:#E7EEF1;
+	color:red;
+	font-size:11px;
+	font-family:"Arial","Tahoma","宋体";
+}
+.pagelist a
+{
+	font-size:11px;
+	font-family:"Arial","Tahoma","宋体";
+}
+
+.t_sub
+{
+	background:#0C5870;
+	color:white;
+	height:25px;
+	text-align:center;
+}
+.tc_left
+{
+	border-left:1px #0C5870 solid;
+	border-right:1px #0C5870 solid;
+	border-bottom:1px #0C5870 solid;
+}
+.tc_right
+{
+	border-right:1px #0C5870 solid;
+	border-bottom:1px #0C5870 solid;
+}
+.tr_over
+{
+	background-color:#DEFFFF;
+	height:23px;
+}
+.tr_out
+{
+	height:23px;
+}
+
+/*错误提示涉及到的样式*/
+.error
+{
+	width:500px;
+	background:#DEFFFF;
+	border:1px #0C5870 solid;
+	padding:5px;
+	text-align:center;
+	font-size:12px;
+	line-height:220%;
+}
